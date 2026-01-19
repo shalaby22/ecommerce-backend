@@ -24,6 +24,8 @@ db();
 
 const authRoute = require("./routes/auth");
 const usersRoute = require("./routes/users");
+const productsRoute = require("./routes/products");
+const categoriesRoute = require("./routes/categories");
 
 
 app.get("/", (req, res) => {
@@ -31,6 +33,8 @@ app.get("/", (req, res) => {
 });
 app.use("/api/auth",authRoute)
 app.use("/api/users",usersRoute)
+app.use("/api/products",productsRoute)
+app.use("/api/categories",categoriesRoute)
 
 
 
