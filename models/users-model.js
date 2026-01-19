@@ -74,6 +74,23 @@ const User = mongoose.model("User", userSchema);
 
 const Joi = require("joi");
 
+
+const passwordComplexity = require("joi-password-complexity");
+
+const complexityOptions = {
+  min: 8,
+  max: 20,
+  lowerCase: 1,
+  upperCase: 1,
+  numeric: 1,
+  symbol: 1,
+  requirementCount: 2,
+};
+
+
+
+
+
 const validateRegister = function (myObj) {
   const schema = Joi.object({
     userName: Joi.string().alphanum().min(6).max(20).required(),
@@ -82,7 +99,7 @@ const validateRegister = function (myObj) {
 
     lastName: Joi.string().alphanum().min(1).max(20).required(),
 
-    password: Joi.string().min(8).max(20).required(),
+    password: passwordComplexity(complexityOptions).required(),
 
     phone: Joi.string()
       .regex(/^[0-9]{10}$/)
@@ -114,7 +131,7 @@ const validateUpdate = function (myObj) {
 
     lastName: Joi.string().alphanum().min(1).max(20),
 
-    password: Joi.string().min(8).max(20),
+    password: passwordComplexity(complexityOptions),
 
     phone: Joi.string()
       .regex(/^[0-9]{10}$/)
@@ -145,9 +162,14 @@ const validateLogin = function (myObj) {
     email: Joi.string().email({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net"] },
-    }),
+    }).message("invalid email"),
   });
   return schema.validate(myObj);
 };
+
+
+
+
+//todo:alter update and register validation
 
 module.exports = { User, validateLogin, validateRegister, validateUpdate };

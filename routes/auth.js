@@ -22,7 +22,7 @@ router.route("/login").post(
   asyncHandler(async (req, res) => {
     const validated = validateLogin(req.body);
     if (validated.error) {
-      return res.status(400).json("wrong email or password");
+      return res.status(400).json(validated.error.details[0].message);
     }
     const myUser = await User.findOne({ email: req.body.email });
 
@@ -40,8 +40,8 @@ router.route("/login").post(
     }
 
     const token = generateToken(myUser);
-
-    res.json({ ...myUser._doc, token: token });
+    const {password , ...other} = myUser._doc;
+    return res.status(200).json({ ...other, token: token });
   }),
 );
 
@@ -57,6 +57,12 @@ router.route("/register").post(
     const validated = validateRegister(req.body);
     if (validated.error) {
       return res.status(400).json(validated.error);
+    }
+
+    const userFound = await User.findOne({email: req.body.email})
+    if(userFound){
+      
+       return res.status(400).json("this user already registered");
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -76,14 +82,15 @@ router.route("/register").post(
 
     const token = generateToken(myUser);
 
-    res.json({ ...myUser._doc, token: token });
+    const {password , ...other} = myUser._doc;
+    res.json({ ...other, token: token });
   }),
 );
 
 const generateToken = function (myUser) {
   const token = jwt.sign(
     { _id: myUser._id, email: myUser.email, isAdmin: myUser.isAdmin },
-    process.env.TOKEN_PASSWORD,{ expiresIn: '5h' }
+    process.env.TOKEN_PASSWORD,{ expiresIn: '2d' }
   );
   return token;
 };

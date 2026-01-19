@@ -6,22 +6,24 @@ const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 
 const { User, validateUpdate } = require("../models/users-model");
+
 const {
-  verifyToken,
   verifyTokenForAdmin,
   verifyTokenForAuthOrAdmin,
-} = require("../middlewares/verifyToken");
+} = require("../middlewares/verifytoken");
+
 /**
 
  * @decs  get all users
  * @route /api/users/
  * @method get
- * 
+ * @access admin 
  */
 
 router.route("/").get(
-  verifyTokenForAdmin,asyncHandler(async (req, res) => {
-    const users = await User.find({});
+  verifyTokenForAdmin,
+  asyncHandler(async (req, res) => {
+    const users = await User.find().select('-password');
     res.status(200).json(users);
   }),
 );
@@ -30,13 +32,18 @@ router.route("/").get(
  * @decs  get user bt id
  * @route /api/users/:id
  * @method get
- * 
+* @access admin or auth 
  */
 
 router.route("/:id").get(
+  verifyTokenForAuthOrAdmin,
   asyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
-    res.status(200).json(user);
+    const user = await User.findById(req.params.id).select('-password');
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(400).json({ message: "that user not found" });
+    }
   }),
 );
 
@@ -45,19 +52,22 @@ router.route("/:id").get(
  * @decs  update a user by id
  * @route /api/users/:id
  * @method put
- * 
+* @access admin or auth 
  */
 
 router.route("/:id").put(
+  verifyTokenForAuthOrAdmin,
   asyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
+    // const user = await User.findById(req.params.id);
 
-    if (!user) {
-      res.status(400).json("didn't find that user");
-    }
+    // if (!user) {
+    //   res.status(400).json("didn't find that user");
+    // }
+
+
     const validated = validateUpdate(req.body);
     if (validated.error) {
-      return res.status(400).json(validated.error);
+      return res.status(400).json(validated.error.details[0].message);
     }
 
     let hash = undefined;
@@ -84,7 +94,7 @@ router.route("/:id").put(
       {
         new: true,
       },
-    );
+    ).select('-password');
     console.log("edited");
 
     res.status(200).json(newUser);
@@ -96,9 +106,10 @@ router.route("/:id").put(
  * @decs  delete a user by id
  * @route /api/users/:id
  * @method delete
- * 
+* @access admin or auth 
  */
 router.route("/:id").delete(
+  verifyTokenForAuthOrAdmin,
   asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
 
