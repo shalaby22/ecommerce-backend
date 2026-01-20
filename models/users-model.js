@@ -61,8 +61,11 @@ const userSchema = new Schema(
     cart: {
       type: [
         {
-          type: Schema.Types.ObjectId,
-          ref: "Product",
+          product: {
+            type: Schema.Types.ObjectId,
+            ref: "Product",
+          },
+          quantity: { type: Number, required: true, min: 0 },
         },
       ],
     },
@@ -121,44 +124,12 @@ const validateRegister = function (myObj, method) {
     const makeRequired = (x) => x.required();
 
     schema = schema.fork(
-      ["userName", "firstName", "lastName", "password", "phone","email"],
+      ["userName", "firstName", "lastName", "password", "phone", "email"],
       makeRequired,
     );
   }
   return schema.validate(myObj);
 };
-
-// const validateUpdate = function (myObj) {
-//   const schema = Joi.object({
-//     userName: Joi.string().alphanum().min(6).max(20),
-
-//     firstName: Joi.string().alphanum().min(1).max(20),
-
-//     lastName: Joi.string().alphanum().min(1).max(20),
-
-//     password: passwordComplexity(complexityOptions),
-
-//     phone: Joi.string()
-//       .regex(/^[0-9]{10}$/)
-//       .messages({ "string.pattern.base": `Phone number must have 10 digits.` }),
-//     payments: Joi.array().items(
-//       Joi.object({
-//         cardNumber: Joi.string().required().min(16).max(16),
-//         expiry: Joi.string().required().min(4).max(9),
-//         cvv: Joi.string().required().min(3).max(4),
-//       }),
-//     ),
-//     addresses: Joi.array().items(Joi.string()),
-
-//     email: Joi.string()
-//       .email({
-//         minDomainSegments: 2,
-//         tlds: { allow: ["com", "net"] },
-//       })
-//       .optional(),
-//   });
-//   return schema.validate(myObj);
-// };
 
 const validateLogin = function (myObj) {
   const schema = Joi.object({
@@ -174,6 +145,27 @@ const validateLogin = function (myObj) {
   return schema.validate(myObj);
 };
 
+const validateAddCart = function (myObj,method) {
+  const schema = Joi.object({
+    productId: Joi.string()
+      .max(25)
+      .alter({
+        put: (schema) => schema.forbidden(),
+        post: (schema) => schema.required(),
+      }),
+    quantity: Joi.number().integer().positive().required(),
 
 
-module.exports = { User, validateLogin, validateRegister };
+  });
+  
+  const postSchema = schema.tailor("post");
+  const putSchema = schema.tailor("put");
+  if (method === "put") {
+    return putSchema.validate(myObj);
+  } else {
+    return postSchema.validate(myObj);
+  }
+
+};
+
+module.exports = { User, validateLogin, validateRegister,validateAddCart };
