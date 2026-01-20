@@ -54,7 +54,7 @@ router.route("/login").post(
 
 router.route("/register").post(
   asyncHandler(async (req, res) => {
-    const validated = validateRegister(req.body);
+    const validated = validateRegister(req.body,"post");
     if (validated.error) {
       return res.status(400).json(validated.error);
     }

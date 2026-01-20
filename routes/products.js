@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const asyncHandler = require("express-async-handler");
-const { Product } = require("../models/products-model");
+const { Product ,validateProduct} = require("../models/products-model");
 const { Category } = require("../models/categories-model");
 
 const { verifyTokenForAdmin } = require("../middlewares/verifytoken");
@@ -18,7 +18,7 @@ router.route("/").get(
   asyncHandler(async (req, res) => {
     const page =  req.query.page || 1;
     const countAPage = req.query.countAPage || 5;
-    const products = await Product.find().skip((page-1)*countAPage).limit(countAPage);
+    const products = await Product.find().skip((page-1)*countAPage).limit(countAPage).populate('category','name');
     res.status(200).json(products);
   }),
 );
@@ -51,6 +51,13 @@ router.route("/:id").get(
 router.route("/").post(
   verifyTokenForAdmin,
   asyncHandler(async (req, res) => {
+    
+    const { error } = validateProduct(req.body, "post");
+
+    if (error) {
+      res.status(400).json(error.details[0].message);
+    }
+
     if (req.body.category) {
       const myCategory = await Category.findOne({ name: req.body.category });
       if (!myCategory) {
@@ -88,6 +95,12 @@ router.route("/:id").put(
     if (!myProduct) {
       res.status(404).json("didn't find that product");
     }
+        const { error } = validateProduct(req.body, "put");
+
+    if (error) {
+      res.status(400).json(error.details[0].message);
+    }
+
 
     if (req.body.category) {
       const myCategory = await Category.findOne({ name: req.body.category });

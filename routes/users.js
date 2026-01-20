@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const asyncHandler = require("express-async-handler");
 
-const { User, validateUpdate } = require("../models/users-model");
+const { User, validateRegister } = require("../models/users-model");
 
 const {
   verifyTokenForAdmin,
@@ -23,7 +23,7 @@ const {
 router.route("/").get(
   verifyTokenForAdmin,
   asyncHandler(async (req, res) => {
-    const users = await User.find().select('-password');
+    const users = await User.find().select("-password");
     res.status(200).json(users);
   }),
 );
@@ -38,7 +38,7 @@ router.route("/").get(
 router.route("/:id").get(
   verifyTokenForAuthOrAdmin,
   asyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id).select('-password');
+    const user = await User.findById(req.params.id).select("-password");
     if (user) {
       res.status(200).json(user);
     } else {
@@ -58,16 +58,17 @@ router.route("/:id").get(
 router.route("/:id").put(
   verifyTokenForAuthOrAdmin,
   asyncHandler(async (req, res) => {
-    // const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id);
 
-    // if (!user) {
-    //   res.status(400).json("didn't find that user");
-    // }
+    if (!user) {
+      res.status(400).json("didn't find that user");
+    }
 
-
-    const validated = validateUpdate(req.body);
+    console.log("validateRegister == > "+ validateRegister(req.body, "put"));
+    
+    const validated = validateRegister(req.body, "put");
     if (validated.error) {
-      return res.status(400).json(validated.error.details[0].message);
+      return res.status(400).json(validated.error);
     }
 
     let hash = undefined;
@@ -94,7 +95,7 @@ router.route("/:id").put(
       {
         new: true,
       },
-    ).select('-password');
+    ).select("-password");
     console.log("edited");
 
     res.status(200).json(newUser);

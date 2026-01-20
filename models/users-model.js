@@ -74,7 +74,6 @@ const User = mongoose.model("User", userSchema);
 
 const Joi = require("joi");
 
-
 const passwordComplexity = require("joi-password-complexity");
 
 const complexityOptions = {
@@ -87,44 +86,8 @@ const complexityOptions = {
   requirementCount: 2,
 };
 
-
-
-
-
-const validateRegister = function (myObj) {
-  const schema = Joi.object({
-    userName: Joi.string().alphanum().min(6).max(20).required(),
-
-    firstName: Joi.string().alphanum().min(1).max(20).required(),
-
-    lastName: Joi.string().alphanum().min(1).max(20).required(),
-
-    password: passwordComplexity(complexityOptions).required(),
-
-    phone: Joi.string()
-      .regex(/^[0-9]{10}$/)
-      .messages({ "string.pattern.base": `Phone number must have 10 digits.` })
-      .required(),
-
-    payments: Joi.array().items(
-      Joi.object({
-        cardNumber: Joi.string().required().min(16).max(16),
-        expiry: Joi.string().required().min(4).max(9),
-        cvv: Joi.string().required().min(3).max(4),
-      }),
-    ),
-    addresses: Joi.array().items(Joi.string()),
-
-    email: Joi.string().email({
-      minDomainSegments: 2,
-      tlds: { allow: ["com", "net"] },
-    }),
-  });
-  return schema.validate(myObj);
-};
-
-const validateUpdate = function (myObj) {
-  const schema = Joi.object({
+const validateRegister = function (myObj, method) {
+  let schema = Joi.object({
     userName: Joi.string().alphanum().min(6).max(20),
 
     firstName: Joi.string().alphanum().min(1).max(20),
@@ -136,6 +99,7 @@ const validateUpdate = function (myObj) {
     phone: Joi.string()
       .regex(/^[0-9]{10}$/)
       .messages({ "string.pattern.base": `Phone number must have 10 digits.` }),
+
     payments: Joi.array().items(
       Joi.object({
         cardNumber: Joi.string().required().min(16).max(16),
@@ -152,24 +116,64 @@ const validateUpdate = function (myObj) {
       })
       .optional(),
   });
+
+  if (method === "post") {
+    const makeRequired = (x) => x.required();
+
+    schema = schema.fork(
+      ["userName", "firstName", "lastName", "password", "phone","email"],
+      makeRequired,
+    );
+  }
   return schema.validate(myObj);
 };
+
+// const validateUpdate = function (myObj) {
+//   const schema = Joi.object({
+//     userName: Joi.string().alphanum().min(6).max(20),
+
+//     firstName: Joi.string().alphanum().min(1).max(20),
+
+//     lastName: Joi.string().alphanum().min(1).max(20),
+
+//     password: passwordComplexity(complexityOptions),
+
+//     phone: Joi.string()
+//       .regex(/^[0-9]{10}$/)
+//       .messages({ "string.pattern.base": `Phone number must have 10 digits.` }),
+//     payments: Joi.array().items(
+//       Joi.object({
+//         cardNumber: Joi.string().required().min(16).max(16),
+//         expiry: Joi.string().required().min(4).max(9),
+//         cvv: Joi.string().required().min(3).max(4),
+//       }),
+//     ),
+//     addresses: Joi.array().items(Joi.string()),
+
+//     email: Joi.string()
+//       .email({
+//         minDomainSegments: 2,
+//         tlds: { allow: ["com", "net"] },
+//       })
+//       .optional(),
+//   });
+//   return schema.validate(myObj);
+// };
 
 const validateLogin = function (myObj) {
   const schema = Joi.object({
     password: Joi.string().min(8).max(20).required(),
 
-    email: Joi.string().email({
-      minDomainSegments: 2,
-      tlds: { allow: ["com", "net"] },
-    }).message("invalid email"),
+    email: Joi.string()
+      .email({
+        minDomainSegments: 2,
+        tlds: { allow: ["com", "net"] },
+      })
+      .message("invalid email"),
   });
   return schema.validate(myObj);
 };
 
 
 
-
-//todo:alter update and register validation
-
-module.exports = { User, validateLogin, validateRegister, validateUpdate };
+module.exports = { User, validateLogin, validateRegister };
