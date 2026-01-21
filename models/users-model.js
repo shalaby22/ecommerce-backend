@@ -73,6 +73,15 @@ const userSchema = new Schema(
   { timestamps: true },
 );
 
+userSchema.methods.cartPrice = function () {
+  const sum = this.cart.reduce(
+    (accumulator, currentValue) => accumulator + (currentValue.product.price * currentValue.quantity),
+    0,
+  );
+  return sum;
+};
+
+
 const User = mongoose.model("User", userSchema);
 
 const Joi = require("joi");
@@ -145,7 +154,7 @@ const validateLogin = function (myObj) {
   return schema.validate(myObj);
 };
 
-const validateAddCart = function (myObj,method) {
+const validateAddCart = function (myObj, method) {
   const schema = Joi.object({
     productId: Joi.string()
       .max(25)
@@ -154,10 +163,8 @@ const validateAddCart = function (myObj,method) {
         post: (schema) => schema.required(),
       }),
     quantity: Joi.number().integer().positive().required(),
-
-
   });
-  
+
   const postSchema = schema.tailor("post");
   const putSchema = schema.tailor("put");
   if (method === "put") {
@@ -165,7 +172,6 @@ const validateAddCart = function (myObj,method) {
   } else {
     return postSchema.validate(myObj);
   }
-
 };
 
-module.exports = { User, validateLogin, validateRegister,validateAddCart };
+module.exports = { User, validateLogin, validateRegister, validateAddCart };

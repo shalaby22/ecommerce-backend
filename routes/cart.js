@@ -29,13 +29,12 @@ router.route("/add").post(
       return res.status(400).json("didn't find your user");
     }
 
-  
     const { error } = validateAddCart(req.body, "post");
 
     if (error) {
       return res.status(400).json(error.details[0].message);
     }
-//todo separate stock validation in a function below
+    //todo separate stock validation in a function below
     let max;
     const myProduct = await Product.findById(req.body.productId).select();
     if (!myProduct) {
@@ -48,15 +47,15 @@ router.route("/add").post(
 
     let done = false;
 
-  for (let i = 0; i < user.cart.length; i++) { 
-    if (req.body.productId == user.cart[i].product) { 
-      user.cart[i].quantity += +req.body.quantity; 
-      if (user.cart[i].quantity > +max) { 
-        return res.status(400).json("the stock is not enough");
-      } 
-      done = true; 
-    } 
-  } 
+    for (let i = 0; i < user.cart.length; i++) {
+      if (req.body.productId == user.cart[i].product) {
+        user.cart[i].quantity += +req.body.quantity;
+        if (user.cart[i].quantity > +max) {
+          return res.status(400).json("the stock is not enough");
+        }
+        done = true;
+      }
+    }
     if (!done) {
       user.cart = [
         ...user.cart,
@@ -89,7 +88,7 @@ router.route("/").get(
       return res.status(400).json("didn't find your user");
     }
 
-    res.status(200).json(user.cart);
+    res.status(200).json({ cart: user.cart, totalPrice: user.cartPrice() });
   }),
 );
 
@@ -171,7 +170,6 @@ router.route("/:productId").put(
       max = myProduct.stock;
     }
 
-
     user.cart.forEach((ele, i) => {
       if (req.params.productId == ele.product) {
         user.cart[i].quantity = req.body.quantity;
@@ -191,5 +189,3 @@ router.route("/:productId").put(
 );
 
 module.exports = router;
-
-
