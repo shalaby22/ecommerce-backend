@@ -75,12 +75,12 @@ const userSchema = new Schema(
 
 userSchema.methods.cartPrice = function () {
   const sum = this.cart.reduce(
-    (accumulator, currentValue) => accumulator + (currentValue.product.price * currentValue.quantity),
+    (accumulator, currentValue) =>
+      accumulator + currentValue.product.price * currentValue.quantity,
     0,
   );
   return sum;
 };
-
 
 const User = mongoose.model("User", userSchema);
 

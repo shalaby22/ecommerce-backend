@@ -27,7 +27,7 @@ const usersRoute = require("./routes/users");
 const productsRoute = require("./routes/products");
 const categoriesRoute = require("./routes/categories.js");
 const cartRoute = require("./routes/cart.js");
-
+const ordersRoute = require("./routes/orders.js")
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -37,6 +37,7 @@ app.use("/api/users",usersRoute)
 app.use("/api/products",productsRoute)
 app.use("/api/categories",categoriesRoute)
 app.use("/api/cart",cartRoute)
+app.use("/api/orders",ordersRoute)
 
 
 
