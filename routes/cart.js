@@ -12,6 +12,8 @@ const {
   verifyToken,
 } = require("../middlewares/verifytoken");
 
+const { FailError } = require("../middlewares/errors");
+
 /**
 
  * @decs  add item to cart
@@ -23,24 +25,24 @@ const {
 router.route("/add").post(
   verifyToken,
   asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id).select("cart");
-
-    if (!user) {
-      return res.status(400).json("didn't find your user");
-    }
+    const user = await User.findById(req.user._id)
+      .select("cart")
+      .populate({ path: "cart.product", select: "name price stock" });
 
     const { error } = validateAddCart(req.body, "post");
 
     if (error) {
-      return res.status(400).json(error.details[0].message);
+      throw new FailError(error.details[0].message, 400);
     }
-    //todo separate stock validation in a function below
+
     let max;
-    const myProduct = await Product.findById(req.body.productId).select();
+    const myProduct = await Product.findById(req.body.productId).select(
+      "name price stock",
+    );
     if (!myProduct) {
-      return res.status(404).json("didn't find that product");
+      throw new FailError("didn't find that product", 404);
     } else if (myProduct.stock < req.body.quantity) {
-      return res.status(400).json("the stock is not enough");
+      throw new FailError("the stock is not enough", 400);
     } else {
       max = myProduct.stock;
     }
@@ -48,10 +50,10 @@ router.route("/add").post(
     let done = false;
 
     for (let i = 0; i < user.cart.length; i++) {
-      if (req.body.productId == user.cart[i].product) {
+      if (req.body.productId == user.cart[i].product._id) {
         user.cart[i].quantity += +req.body.quantity;
         if (user.cart[i].quantity > +max) {
-          return res.status(400).json("the stock is not enough");
+          throw new FailError("the stock is not enough", 400);
         }
         done = true;
       }
@@ -59,16 +61,20 @@ router.route("/add").post(
     if (!done) {
       user.cart = [
         ...user.cart,
-        { product: req.body.productId, quantity: req.body.quantity },
+        { product: myProduct, quantity: req.body.quantity },
       ];
     }
-
     const saved = await user.save();
-    console.log("added");
 
-    res.status(200).json(saved.cart);
+    const cart = { cart: [...saved.cart], totalPrice: user.cartPrice() };
+
+    return res.status(200).json({
+      status: "success",
+      data: cart,
+    });
   }),
 );
+
 /**
 
  * @decs  get cart of user
@@ -84,11 +90,12 @@ router.route("/").get(
       .select("cart")
       .populate({ path: "cart.product", select: "name price stock" });
 
-    if (!user) {
-      return res.status(400).json("didn't find your user");
-    }
+    const cart = { cart: [...user.cart], totalPrice: user.cartPrice() };
 
-    res.status(200).json({ cart: user.cart, totalPrice: user.cartPrice() });
+    return res.status(200).json({
+      status: "success",
+      data: cart,
+    });
   }),
 );
 
@@ -104,13 +111,13 @@ router.route("/").delete(
   verifyToken,
   asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id).select("cart");
-
-    if (!user) {
-      return res.status(400).json("didn't find your user");
-    }
     user.cart = [];
     const deleted = await user.save();
-    res.status(200).json(deleted);
+
+    return res.status(200).json({
+      status: "success",
+      data: "the cart is empty successfully",
+    });
   }),
 );
 
@@ -125,16 +132,21 @@ router.route("/").delete(
 router.route("/:productId").delete(
   verifyToken,
   asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id).select("cart");
+    const user = await User.findById(req.user._id)
+      .select("cart")
+      .populate({ path: "cart.product", select: "name price stock" });
 
-    if (!user) {
-      return res.status(400).json("didn't find your user");
-    }
 
-    user.cart = user.cart.filter((ele) => req.params.productId != ele.product);
+    user.cart = user.cart.filter((ele) => req.params.productId != ele.product._id);
 
     const deleted = await user.save();
-    res.status(200).json(deleted);
+
+    const cart = { cart: [...user.cart], totalPrice: user.cartPrice() };
+
+    return res.status(200).json({
+      status: "success",
+      data: cart,
+    });
   }),
 );
 /**
@@ -148,43 +160,45 @@ router.route("/:productId").delete(
 router.route("/:productId").put(
   verifyToken,
   asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id).select("cart");
+    const user = await User.findById(req.user._id)
+      .select("cart")
+      .populate({ path: "cart.product", select: "name price stock" });
+
     let done = false;
-    if (!user) {
-      return res.status(400).json("didn't find your user");
-    }
 
     const { error } = validateAddCart(req.body, "put");
 
     if (error) {
-      return res.status(400).json(error.details[0].message);
+      throw new FailError(error.details[0].message, 400);
     }
 
-    let max;
+  
     const myProduct = await Product.findById(req.params.productId).select();
     if (!myProduct) {
-      return res.status(404).json("didn't find that product");
+      throw new FailError("didn't find that product", 404);
     } else if (myProduct.stock < req.body.quantity) {
-      return res.status(400).json("the stock is not enough");
-    } else {
-      max = myProduct.stock;
+      throw new FailError("the stock is not enough", 400);
     }
-
     user.cart.forEach((ele, i) => {
-      if (req.params.productId == ele.product) {
+      if (req.params.productId == ele.product._id) {
         user.cart[i].quantity = req.body.quantity;
         done = true;
       }
     });
 
     if (!done) {
-      return res
-        .status(400)
-        .json("this product isn't in your cart please add it");
+      throw new FailError("this product isn't in your cart please add it", 400);
     }
 
     const edited = await user.save();
-    res.status(200).json(edited.cart);
+
+    const cart = { cart: [...user.cart], totalPrice: edited.cartPrice() };
+
+
+    return res.status(200).json({
+      status: "success",
+      data: cart,
+    });
   }),
 );
 

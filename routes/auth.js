@@ -11,6 +11,8 @@ const {
   validateRegister,
 } = require("../models/users-model");
 
+const { FailError } = require("../middlewares/errors");
+
 /**
 
  * @decs  login user
@@ -22,12 +24,12 @@ router.route("/login").post(
   asyncHandler(async (req, res) => {
     const validated = validateLogin(req.body);
     if (validated.error) {
-      return res.status(400).json(validated.error.details[0].message);
+      throw new FailError(validated.error.details[0].message, 400);
     }
     const myUser = await User.findOne({ email: req.body.email });
 
     if (!myUser) {
-      return res.status(400).json("wrong email or password");
+      throw new FailError("wrong email or password", 400);
     }
 
     const checkPassword = await bcrypt.compare(
@@ -36,12 +38,16 @@ router.route("/login").post(
     );
 
     if (!checkPassword) {
-      return res.status(400).json("wrong email or password");
+      throw new FailError("wrong email or password", 400);
     }
 
     const token = generateToken(myUser);
-    const {password , ...other} = myUser._doc;
-    return res.status(200).json({ ...other, token: token });
+    const { password, ...other } = myUser._doc;
+    const user = { ...other, token: token };
+    return res.status(200).json({
+      status: "success",
+      data: { user },
+    });
   }),
 );
 
@@ -54,15 +60,14 @@ router.route("/login").post(
 
 router.route("/register").post(
   asyncHandler(async (req, res) => {
-    const validated = validateRegister(req.body,"post");
+    const validated = validateRegister(req.body, "post");
     if (validated.error) {
-      return res.status(400).json(validated.error);
+      throw new FailError(validated.error.details[0].message, 400);
     }
 
-    const userFound = await User.findOne({email: req.body.email})
-    if(userFound){
-      
-       return res.status(400).json("this user already registered");
+    const userFound = await User.findOne({ email: req.body.email });
+    if (userFound) {
+      throw new FailError("this email already registered", 400);
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -82,16 +87,22 @@ router.route("/register").post(
 
     const token = generateToken(myUser);
 
-    const {password , ...other} = myUser._doc;
-    res.json({ ...other, token: token });
+    const { password, ...other } = myUser._doc;
+    const user = { ...other, token: token };
+    return res.status(201).json({
+      status: "success",
+      data: { user },
+    });
   }),
 );
 
 const generateToken = function (myUser) {
   const token = jwt.sign(
     { _id: myUser._id, email: myUser.email, isAdmin: myUser.isAdmin },
-    process.env.TOKEN_PASSWORD,{ expiresIn: '2d' }
+    process.env.TOKEN_PASSWORD,
+    { expiresIn: "7d" },
   );
   return token;
 };
+
 module.exports = router;

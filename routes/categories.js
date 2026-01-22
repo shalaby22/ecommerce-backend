@@ -5,8 +5,9 @@ const { Product } = require("../models/products-model");
 const { Category, validateCategory } = require("../models/categories-model");
 const { verifyTokenForAdmin } = require("../middlewares/verifytoken");
 
-/**
+const { FailError } = require("../middlewares/errors");
 
+/**
  * @decs  get all Categories
  * @route /api/category/
  * @method get
@@ -16,7 +17,11 @@ const { verifyTokenForAdmin } = require("../middlewares/verifytoken");
 router.route("/").get(
   asyncHandler(async (req, res) => {
     const categories = await Category.find().select();
-    res.status(200).json(categories);
+
+    return res.status(200).json({
+      status: "success",
+      data: { categories },
+    });
   }),
 );
 
@@ -32,10 +37,13 @@ router.route("/:id").get(
   asyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id);
     if (!category) {
-      res.status(404).json("didn't find that Category");
+      throw new FailError("didn't find that Category", 404);
     }
 
-    res.status(200).json(category);
+    return res.status(200).json({
+      status: "success",
+      data: { category },
+    });
   }),
 );
 
@@ -51,11 +59,14 @@ router.route("/:id/products").get(
   asyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id);
     if (!category) {
-      res.status(404).json("didn't find that Category");
+      throw new FailError("didn't find that Category", 404);
     }
     const products = await Product.find({ category: category._id });
 
-    res.status(200).json(products);
+    return res.status(200).json({
+      status: "success",
+      data: { products },
+    });
   }),
 );
 
@@ -73,7 +84,7 @@ router.route("/").post(
     const { error } = validateCategory(req.body, "post");
 
     if (error) {
-      res.status(400).json(error.details[0].message);
+      throw new FailError(error.details[0].message, 400);
     }
 
     const newCategory = new Category({
@@ -82,7 +93,11 @@ router.route("/").post(
       image: req.body.image,
     });
     await newCategory.save();
-    res.status(200).json(newCategory);
+
+    return res.status(201).json({
+      status: "success",
+      data: { category: newCategory },
+    });
   }),
 );
 /**
@@ -98,12 +113,12 @@ router.route("/:id").put(
   asyncHandler(async (req, res) => {
     const myCategory = await Category.findById(req.params.id);
     if (!myCategory) {
-      res.status(404).json("didn't find that Category");
+      throw new FailError("didn't find that Category", 404);
     }
     const { error } = validateCategory(req.body, "put");
 
     if (error) {
-      res.status(400).json(error.details[0].message);
+      throw new FailError(error.details[0].message, 400);
     }
 
     const newCategory = await Category.findByIdAndUpdate(
@@ -117,7 +132,11 @@ router.route("/:id").put(
         new: true,
       },
     );
-    res.status(200).json(newCategory);
+
+    return res.status(200).json({
+      status: "success",
+      data: { category: newCategory },
+    });
   }),
 );
 /**
@@ -133,10 +152,14 @@ router.route("/:id").delete(
   asyncHandler(async (req, res) => {
     const myCategory = await Category.findById(req.params.id);
     if (!myCategory) {
-      res.status(404).json("didn't find that Category");
+      throw new FailError("didn't find that Category", 404);
     }
     const newCategory = await Category.findByIdAndDelete(req.params.id);
-    res.status(200).json("deleted successfully");
+
+    return res.status(200).json({
+      status: "success",
+      data: "deleted successfully",
+    });
   }),
 );
 

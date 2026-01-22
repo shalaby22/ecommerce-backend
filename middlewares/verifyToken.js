@@ -1,23 +1,33 @@
 const jwt = require("jsonwebtoken");
+const { FailError } = require("./errors");
 
-const verifyToken = (req, res, next) => {
+const { User } = require("../models/users-model");
+
+const verifyToken = async (req, res, next) => {
   const token = req.headers.token;
   if (!token) {
-    res.status(400).json("no token provided");
+    throw new FailError("no token provided", 401);
   }
   try {
     const decoded = jwt.verify(token, process.env.TOKEN_PASSWORD);
     req.user = decoded;
   } catch (err) {
-    res.status(400).json("something wrong with token ==>>" + err);
+    throw new FailError(err, 401);
+  }
+
+
+  const user = await User.findById(req.user._id);
+  if (!user) {
+    throw new FailError("you User no longer exists", 401);
   }
 
   next();
 };
+
 const verifyTokenForAdmin = function (req, res, next) {
   verifyToken(req, res, () => {
     if (!req.user.isAdmin) {
-      res.status(400).json("you are not admin");
+      throw new FailError("you are not admin,only admin can make this", 403);
     } else {
       next();
     }
@@ -27,7 +37,10 @@ const verifyTokenForAdmin = function (req, res, next) {
 const verifyTokenForAuthOrAdmin = (req, res, next) => {
   verifyToken(req, res, () => {
     if (!req.user.isAdmin && req.params.id !== req.user._id) {
-      res.status(400).json("you are not allowed to make that for another user");
+      throw new FailError(
+        "you are not allowed to make that for another user",
+        403,
+      );
     } else {
       next();
     }

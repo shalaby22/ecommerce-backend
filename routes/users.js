@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 
 const asyncHandler = require("express-async-handler");
 
@@ -12,19 +11,23 @@ const {
   verifyTokenForAuthOrAdmin,
 } = require("../middlewares/verifytoken");
 
-/**
+const { FailError } = require("../middlewares/errors");
 
+/**
  * @decs  get all users
  * @route /api/users/
  * @method get
- * @access admin 
+ * @access admin
  */
 
 router.route("/").get(
   verifyTokenForAdmin,
   asyncHandler(async (req, res) => {
     const users = await User.find().select("-password");
-    res.status(200).json(users);
+    return res.status(200).json({
+      status: "success",
+      data: { users },
+    });
   }),
 );
 /**
@@ -40,9 +43,12 @@ router.route("/:id").get(
   asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id).select("-password");
     if (user) {
-      res.status(200).json(user);
+      return res.status(200).json({
+        status: "success",
+        data: { user },
+      });
     } else {
-      res.status(400).json({ message: "that user not found" });
+      throw new FailError("that user not found", 404);
     }
   }),
 );
@@ -61,14 +67,13 @@ router.route("/:id").put(
     const user = await User.findById(req.params.id);
 
     if (!user) {
-      res.status(400).json("didn't find that user");
+      throw new FailError("that user not found", 404);
     }
 
-    console.log("validateRegister == > "+ validateRegister(req.body, "put"));
-    
     const validated = validateRegister(req.body, "put");
+
     if (validated.error) {
-      return res.status(400).json(validated.error);
+      throw new FailError(validated.error, 400);
     }
 
     let hash = undefined;
@@ -96,9 +101,11 @@ router.route("/:id").put(
         new: true,
       },
     ).select("-password");
-    console.log("edited");
 
-    res.status(200).json(newUser);
+    return res.status(200).json({
+      status: "success",
+      data: { user: newUser },
+    });
   }),
 );
 
@@ -115,13 +122,15 @@ router.route("/:id").delete(
     const user = await User.findById(req.params.id);
 
     if (!user) {
-      res.status(400).json("didn't find that user");
+      throw new FailError("that user not found", 404);
     }
 
     const deleted = await User.findByIdAndDelete(req.params.id);
-    console.log(deleted);
 
-    res.status(200).json("deleted successfully");
+    return res.status(200).json({
+      status: "success",
+      data: "deleted successfully",
+    });
   }),
 );
 

@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const asyncHandler = require("express-async-handler");
-const { Product ,validateProduct} = require("../models/products-model");
+const { Product, validateProduct } = require("../models/products-model");
 const { Category } = require("../models/categories-model");
 
 const { verifyTokenForAdmin } = require("../middlewares/verifytoken");
+const { FailError } = require("../middlewares/errors");
 
 /**
 
@@ -16,10 +17,17 @@ const { verifyTokenForAdmin } = require("../middlewares/verifytoken");
 
 router.route("/").get(
   asyncHandler(async (req, res) => {
-    const page =  req.query.page || 1;
+    const page = req.query.page || 1;
     const countAPage = req.query.countAPage || 5;
-    const products = await Product.find().skip((page-1)*countAPage).limit(countAPage).populate('category','name');
-    res.status(200).json(products);
+    const products = await Product.find()
+      .skip((page - 1) * countAPage)
+      .limit(countAPage)
+      .populate("category", "name");
+
+    return res.status(200).json({
+      status: "success",
+      data: { products },
+    });
   }),
 );
 /**
@@ -32,11 +40,18 @@ router.route("/").get(
 
 router.route("/:id").get(
   asyncHandler(async (req, res) => {
-    const myProduct = await Product.findById(req.params.id).populate('category',['name','image',"description"]);
+    const myProduct = await Product.findById(req.params.id).populate(
+      "category",
+      ["name", "image", "description"],
+    );
     if (!myProduct) {
-      res.status(404).json("didn't find that product");
+      throw new FailError("didn't find that product", 404);
     }
-    res.status(200).json(myProduct);
+
+    return res.status(200).json({
+      status: "success",
+      data: { product: myProduct },
+    });
   }),
 );
 
@@ -51,17 +66,16 @@ router.route("/:id").get(
 router.route("/").post(
   verifyTokenForAdmin,
   asyncHandler(async (req, res) => {
-    
     const { error } = validateProduct(req.body, "post");
 
     if (error) {
-      res.status(400).json(error.details[0].message);
+      throw new FailError(error.details[0].message, 400);
     }
 
     if (req.body.category) {
       const myCategory = await Category.findOne({ name: req.body.category });
       if (!myCategory) {
-        res.status(404).json("didn't find that category");
+        throw new FailError("didn't find that category", 404);
       }
       req.body.categoryId = myCategory._id;
     }
@@ -76,7 +90,10 @@ router.route("/").post(
     });
 
     await newProduct.save();
-    res.status(200).json(newProduct);
+    return res.status(201).json({
+      status: "success",
+      data: { product: newProduct },
+    });
   }),
 );
 
@@ -93,19 +110,18 @@ router.route("/:id").put(
   asyncHandler(async (req, res) => {
     const myProduct = await Product.findById(req.params.id);
     if (!myProduct) {
-      res.status(404).json("didn't find that product");
+      throw new FailError("didn't find that product", 404);
     }
-        const { error } = validateProduct(req.body, "put");
+    const { error } = validateProduct(req.body, "put");
 
     if (error) {
-      res.status(400).json(error.details[0].message);
+      throw new FailError(error.details[0].message, 400);
     }
-
 
     if (req.body.category) {
       const myCategory = await Category.findOne({ name: req.body.category });
       if (!myCategory) {
-        res.status(404).json("didn't find that category");
+        throw new FailError("didn't find that category", 404);
       }
       req.body.categoryId = myCategory._id;
     }
@@ -123,7 +139,11 @@ router.route("/:id").put(
         new: true,
       },
     );
-    res.status(200).json(newProduct);
+
+    return res.status(200).json({
+      status: "success",
+      data: { product: newProduct },
+    });
   }),
 );
 
@@ -140,11 +160,15 @@ router.route("/:id").delete(
   asyncHandler(async (req, res) => {
     const myProduct = await Product.findById(req.params.id);
     if (!myProduct) {
-      res.status(404).json("didn't find that product");
+      throw new FailError("didn't find that product", 404);
+
     }
 
-    const newProduct = await Product.findByIdAndDelete(req.params.id);
-    res.status(200).json("deleted successfully");
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    return res.status(200).json({
+      status: "success",
+      data: "deleted successfully",
+    });
   }),
 );
 

@@ -2,10 +2,7 @@
 const express = require("express");
 const app = express();
 app.use(express.json());
-const dotenv = require('dotenv').config()
-
-
-
+const dotenv = require("dotenv").config();
 
 // connecting with database
 const mongoose = require("mongoose");
@@ -17,29 +14,36 @@ const db = async function () {
   } catch (error) {
     console.log("couldn't connect to the data base -->" + error);
   }
-
 };
 db();
-
 
 const authRoute = require("./routes/auth");
 const usersRoute = require("./routes/users");
 const productsRoute = require("./routes/products");
 const categoriesRoute = require("./routes/categories.js");
 const cartRoute = require("./routes/cart.js");
-const ordersRoute = require("./routes/orders.js")
+const ordersRoute = require("./routes/orders.js");
 
 app.get("/", (req, res) => {
+  throw new Error("hhhh");
   res.send("Hello World");
 });
-app.use("/api/auth",authRoute)
-app.use("/api/users",usersRoute)
-app.use("/api/products",productsRoute)
-app.use("/api/categories",categoriesRoute)
-app.use("/api/cart",cartRoute)
-app.use("/api/orders",ordersRoute)
+app.use("/api/auth", authRoute);
+app.use("/api/users", usersRoute);
+app.use("/api/products", productsRoute);
+app.use("/api/categories", categoriesRoute);
+app.use("/api/cart", cartRoute);
+app.use("/api/orders", ordersRoute);
 
 
+
+const {notFound,errHandler} = require("./middlewares/errors");
+
+
+
+app.use(notFound);
+
+app.use(errHandler);
 
 // app execution
 app.listen(3000, () => {
