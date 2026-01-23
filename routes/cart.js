@@ -13,7 +13,8 @@ const {
 } = require("../middlewares/verifytoken");
 
 const { FailError } = require("../middlewares/errors");
-
+const { verifyCartProducts } = require("../utils/verifyCartProducts");
+const isValidObjectId = require("../utils/isValidObjectId");
 /**
 
  * @decs  add item to cart
@@ -25,6 +26,9 @@ const { FailError } = require("../middlewares/errors");
 router.route("/add").post(
   verifyToken,
   asyncHandler(async (req, res) => {
+    if (!isValidObjectId(req.body.productId)) {
+      throw new FailError("that is not a valid productId", 400);
+    }
     const user = await User.findById(req.user._id)
       .select("cart")
       .populate({ path: "cart.product", select: "name price stock" });
@@ -47,6 +51,8 @@ router.route("/add").post(
       max = myProduct.stock;
     }
 
+    verifyCartProducts(user.cart);
+
     let done = false;
 
     for (let i = 0; i < user.cart.length; i++) {
@@ -66,7 +72,7 @@ router.route("/add").post(
     }
     const saved = await user.save();
 
-    const cart = { cart: [...saved.cart], totalPrice: user.cartPrice() };
+    const cart = { cart: [...saved.cart], total: user.cartPrice() };
 
     return res.status(200).json({
       status: "success",
@@ -90,7 +96,12 @@ router.route("/").get(
       .select("cart")
       .populate({ path: "cart.product", select: "name price stock" });
 
-    const cart = { cart: [...user.cart], totalPrice: user.cartPrice() };
+    const { edited } = verifyCartProducts(user.cart);
+
+    if (edited) {
+      const saved = await user.save();
+    }
+    const cart = { cart: [...user.cart], total: user.cartPrice() };
 
     return res.status(200).json({
       status: "success",
@@ -136,12 +147,15 @@ router.route("/:productId").delete(
       .select("cart")
       .populate({ path: "cart.product", select: "name price stock" });
 
+    verifyCartProducts(user.cart);
 
-    user.cart = user.cart.filter((ele) => req.params.productId != ele.product._id);
+    user.cart = user.cart.filter(
+      (ele) => req.params.productId != ele.product._id,
+    );
 
     const deleted = await user.save();
 
-    const cart = { cart: [...user.cart], totalPrice: user.cartPrice() };
+    const cart = { cart: [...user.cart], total: user.cartPrice() };
 
     return res.status(200).json({
       status: "success",
@@ -149,17 +163,21 @@ router.route("/:productId").delete(
     });
   }),
 );
-/**
 
+/**
  * @decs  edit quantity of a product from cart of user
  * @route /api/cart/:productId
  * @method put
- * @access auth  
+ * @access auth
  */
 
 router.route("/:productId").put(
   verifyToken,
   asyncHandler(async (req, res) => {
+    if (!isValidObjectId(req.params.productId)) {
+      throw new FailError("that is not a valid productId", 400);
+    }
+
     const user = await User.findById(req.user._id)
       .select("cart")
       .populate({ path: "cart.product", select: "name price stock" });
@@ -172,13 +190,15 @@ router.route("/:productId").put(
       throw new FailError(error.details[0].message, 400);
     }
 
-  
     const myProduct = await Product.findById(req.params.productId).select();
     if (!myProduct) {
       throw new FailError("didn't find that product", 404);
     } else if (myProduct.stock < req.body.quantity) {
       throw new FailError("the stock is not enough", 400);
     }
+
+    verifyCartProducts(user.cart);
+
     user.cart.forEach((ele, i) => {
       if (req.params.productId == ele.product._id) {
         user.cart[i].quantity = req.body.quantity;
@@ -192,8 +212,7 @@ router.route("/:productId").put(
 
     const edited = await user.save();
 
-    const cart = { cart: [...user.cart], totalPrice: edited.cartPrice() };
-
+    const cart = { cart: [...user.cart], total: edited.cartPrice() };
 
     return res.status(200).json({
       status: "success",

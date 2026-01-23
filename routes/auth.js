@@ -65,10 +65,10 @@ router.route("/register").post(
       throw new FailError(validated.error.details[0].message, 400);
     }
 
-    const userFound = await User.findOne({ email: req.body.email });
-    if (userFound) {
-      throw new FailError("this email already registered", 400);
-    }
+    // const userFound = await User.findOne({ email: req.body.email });
+    // if (userFound) {
+    //   throw new FailError("this email already registered", 400);
+    // }
 
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(req.body.password, salt);
@@ -83,7 +83,17 @@ router.route("/register").post(
       password: hash,
       payments: req.body.payments,
     });
-    await myUser.save();
+
+    try {
+      await myUser.save();
+    } catch (error) {
+      if (error.code === 11000) {
+        console.log(error);
+        const field = Object.keys(error.keyValue)[0];
+        throw new FailError(`this ${field} already exists`, 400);
+      }
+      throw new FailError(error, 400);
+    }
 
     const token = generateToken(myUser);
 

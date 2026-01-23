@@ -12,7 +12,7 @@ const {
 } = require("../middlewares/verifytoken");
 
 const { FailError } = require("../middlewares/errors");
-
+const isValidObjectId = require("../utils/isValidObjectId");
 /**
  * @decs  get all users
  * @route /api/users/
@@ -32,7 +32,7 @@ router.route("/").get(
 );
 /**
 
- * @decs  get user bt id
+ * @decs  get user by id
  * @route /api/users/:id
  * @method get
 * @access admin or auth 
@@ -41,6 +41,10 @@ router.route("/").get(
 router.route("/:id").get(
   verifyTokenForAuthOrAdmin,
   asyncHandler(async (req, res) => {
+    if (!isValidObjectId(req.params.id)) {
+      throw new FailError("that is not a valid userId", 400);
+    }
+
     const user = await User.findById(req.params.id).select("-password");
     if (user) {
       return res.status(200).json({
@@ -64,6 +68,9 @@ router.route("/:id").get(
 router.route("/:id").put(
   verifyTokenForAuthOrAdmin,
   asyncHandler(async (req, res) => {
+    if (!isValidObjectId(req.params.id)) {
+      throw new FailError("that is not a valid userId", 400);
+    }
     const user = await User.findById(req.params.id);
 
     if (!user) {
@@ -84,23 +91,32 @@ router.route("/:id").put(
     } else {
       const hash = undefined;
     }
-
-    const newUser = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        addresses: req.body.addresses,
-        userName: req.body.userName,
-        email: req.body.email,
-        lastName: req.body.lastName,
-        firstName: req.body.firstName,
-        phone: req.body.phone,
-        password: hash,
-        payments: req.body.payments,
-      },
-      {
-        new: true,
-      },
-    ).select("-password");
+    let newUser;
+    try {
+      newUser = await User.findByIdAndUpdate(
+        req.params.id,
+        {
+          addresses: req.body.addresses,
+          userName: req.body.userName,
+          email: req.body.email,
+          lastName: req.body.lastName,
+          firstName: req.body.firstName,
+          phone: req.body.phone,
+          password: hash,
+          payments: req.body.payments,
+        },
+        {
+          new: true,
+        },
+      ).select("-password");
+    } catch (error) {
+      if (error.code === 11000) {
+        console.log(error);
+        const field = Object.keys(error.keyValue)[0];
+        throw new FailError(`this ${field} already exists`, 400);
+      }
+      throw new FailError(error, 400);
+    }
 
     return res.status(200).json({
       status: "success",
@@ -119,6 +135,9 @@ router.route("/:id").put(
 router.route("/:id").delete(
   verifyTokenForAuthOrAdmin,
   asyncHandler(async (req, res) => {
+    if (!isValidObjectId(req.params.id)) {
+      throw new FailError("that is not a valid userId", 400);
+    }
     const user = await User.findById(req.params.id);
 
     if (!user) {

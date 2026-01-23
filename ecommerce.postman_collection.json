@@ -1,0 +1,3521 @@
+{
+  "info": {
+    "_postman_id": "a3aaca05-1454-4ffb-9af5-3f8533d6fd30",
+    "name": "ecommerce",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51544435",
+    "_collection_link": "https://go.postman.co/collection/51544435-a3aaca05-1454-4ffb-9af5-3f8533d6fd30?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userName\": \"hhh2234\",\r\n    \"password\": \"p32245223\",\r\n    \"email\": \"memwo@gam.com\",\r\n    \"firstName\": \"mohamed\",\r\n    \"lastName\": \"salah\",\r\n    \"phone\": \"4363346356\",\r\n    \"addresses\": [\r\n        \"quwesna\"\r\n    ], \"payments\": [\r\n      {\r\n        \"cardNumber\":\"4012001037141112\",\r\n        \"expiry\": \"12/2027\",\r\n        \"cvv\": \"343\"\r\n      }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/auth/register",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "register",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"userName\": \"hhh2234\",\r\n    \"password\": \"p32245223\",\r\n    \"email\": \"memwo@gam.com\",\r\n    \"firstName\": \"mohamed\",\r\n    \"lastName\": \"salah\",\r\n    \"phone\": \"4363346356\",\r\n    \"addresses\": [\r\n        \"quwesna\"\r\n    ], \"payments\": [\r\n      {\r\n        \"cardNumber\":\"4012001037141112\",\r\n        \"expiry\": \"12/2027\",\r\n        \"cvv\": \"343\"\r\n      }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/auth/register",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "register"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "661"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"295-xYK1Z+JQrthDlgUTGgsrYMr3UoE\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 16:49:47 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"user\": {\n            \"userName\": \"hhh2234\",\n            \"email\": \"memwo@gam.com\",\n            \"firstName\": \"mohamed\",\n            \"lastName\": \"salah\",\n            \"phone\": \"4363346356\",\n            \"payments\": [\n                {\n                    \"cardNumber\": \"4012001037141112\",\n                    \"expiry\": \"12/2027\",\n                    \"cvv\": \"343\",\n                    \"_id\": \"6972552b3d7f2916eb2f8c70\"\n                }\n            ],\n            \"addresses\": [\n                \"quwesna\"\n            ],\n            \"isAdmin\": false,\n            \"_id\": \"6972552b3d7f2916eb2f8c6f\",\n            \"cart\": [],\n            \"createdAt\": \"2026-01-22T16:49:47.118Z\",\n            \"updatedAt\": \"2026-01-22T16:49:47.118Z\",\n            \"__v\": 0,\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTcyNTUyYjNkN2YyOTE2ZWIyZjhjNmYiLCJlbWFpbCI6Im1lbXdvQGdhbS5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzY5MTAwNTg3LCJleHAiOjE3Njk3MDUzODd9.tAvmmzYr126TjCkWJoJz4pWvEnv-pq5nxL83sEv3PRI\"\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"password\": \"p3224523\",\r\n    \"email\": \"memo@gam.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/auth/login",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "login",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"password\": \"p3224523\",\r\n    \"email\": \"memo@gam.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/auth/login",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "658"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"292-88A3GjZZbC0wT5F5jADzBLl5nF4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 16:50:30 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"user\": {\n            \"_id\": \"696e237c58f73a7e75a28f10\",\n            \"userName\": \"ahmed3\",\n            \"email\": \"memo@gam.com\",\n            \"firstName\": \"samy\",\n            \"lastName\": \"ahemd\",\n            \"phone\": \"4363446356\",\n            \"payments\": [\n                {\n                    \"cardNumber\": \"4012001037141112\",\n                    \"expiry\": \"12/2027\",\n                    \"cvv\": \"343\",\n                    \"_id\": \"696e237d58f73a7e75a28f11\"\n                }\n            ],\n            \"addresses\": [\n                \"playfootball\"\n            ],\n            \"isAdmin\": true,\n            \"cart\": [],\n            \"createdAt\": \"2026-01-19T12:28:45.008Z\",\n            \"updatedAt\": \"2026-01-22T11:14:50.218Z\",\n            \"__v\": 0,\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTZlMjM3YzU4ZjczYTdlNzVhMjhmMTAiLCJlbWFpbCI6Im1lbW9AZ2FtLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2OTEwMDYzMCwiZXhwIjoxNzY5NzA1NDMwfQ.8VJRIw1JlCy44d4EhyDmniwGGXu4NwK6NIdpDo0u__Y\"\n        }\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "get all users",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/users/",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get all users",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/users/",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1592"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"638-YTg4Q+ST9LyAFX7LSeIgDdGDqtg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 16:50:41 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"users\": [\n            {\n                \"_id\": \"696e237c58f73a7e75a28f10\",\n                \"userName\": \"ahmed3\",\n                \"email\": \"memo@gam.com\",\n                \"firstName\": \"samy\",\n                \"lastName\": \"ahemd\",\n                \"phone\": \"4363446356\",\n                \"payments\": [\n                    {\n                        \"cardNumber\": \"4012001037141112\",\n                        \"expiry\": \"12/2027\",\n                        \"cvv\": \"343\",\n                        \"_id\": \"696e237d58f73a7e75a28f11\"\n                    }\n                ],\n                \"addresses\": [\n                    \"playfootball\"\n                ],\n                \"isAdmin\": true,\n                \"cart\": [],\n                \"createdAt\": \"2026-01-19T12:28:45.008Z\",\n                \"updatedAt\": \"2026-01-22T11:14:50.218Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696f4e82e4495008369f1e4f\",\n                \"userName\": \"f24\",\n                \"email\": \"mem@gam.com\",\n                \"firstName\": \"p2lay\",\n                \"lastName\": \"pl2ay\",\n                \"phone\": \"4363346356\",\n                \"payments\": [\n                    {\n                        \"cardNumber\": \"4012001037141112\",\n                        \"expiry\": \"12/2027\",\n                        \"cvv\": \"343\",\n                        \"_id\": \"696f4e82e4495008369f1e50\"\n                    }\n                ],\n                \"addresses\": [\n                    \"play2football\"\n                ],\n                \"isAdmin\": false,\n                \"cart\": [],\n                \"createdAt\": \"2026-01-20T09:44:34.192Z\",\n                \"updatedAt\": \"2026-01-22T16:36:48.586Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"6972549c3d7f2916eb2f8c65\",\n                \"userName\": \"hhh234\",\n                \"email\": \"memw2o@gam.com\",\n                \"firstName\": \"mohamed\",\n                \"lastName\": \"salah\",\n                \"phone\": \"4363346356\",\n                \"payments\": [\n                    {\n                        \"cardNumber\": \"4012001037141112\",\n                        \"expiry\": \"12/2027\",\n                        \"cvv\": \"343\",\n                        \"_id\": \"6972549c3d7f2916eb2f8c66\"\n                    }\n                ],\n                \"addresses\": [\n                    \"quwesna\"\n                ],\n                \"isAdmin\": false,\n                \"cart\": [],\n                \"createdAt\": \"2026-01-22T16:47:24.917Z\",\n                \"updatedAt\": \"2026-01-22T16:47:24.917Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"6972552b3d7f2916eb2f8c6f\",\n                \"userName\": \"hhh2234\",\n                \"email\": \"memwo@gam.com\",\n                \"firstName\": \"mohamed\",\n                \"lastName\": \"salah\",\n                \"phone\": \"4363346356\",\n                \"payments\": [\n                    {\n                        \"cardNumber\": \"4012001037141112\",\n                        \"expiry\": \"12/2027\",\n                        \"cvv\": \"343\",\n                        \"_id\": \"6972552b3d7f2916eb2f8c70\"\n                    }\n                ],\n                \"addresses\": [\n                    \"quwesna\"\n                ],\n                \"isAdmin\": false,\n                \"cart\": [],\n                \"createdAt\": \"2026-01-22T16:49:47.118Z\",\n                \"updatedAt\": \"2026-01-22T16:49:47.118Z\",\n                \"__v\": 0\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get user by id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/users/696e237c58f73a7e75a28f10",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "696e237c58f73a7e75a28f10"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get user by id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/users/696e237c58f73a7e75a28f10",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "696e237c58f73a7e75a28f10"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "424"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1a8-SPCdGDqTuz+cM0MH3mkZ2Ox7u54\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 16:51:04 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"user\": {\n            \"_id\": \"696e237c58f73a7e75a28f10\",\n            \"userName\": \"ahmed3\",\n            \"email\": \"memo@gam.com\",\n            \"firstName\": \"samy\",\n            \"lastName\": \"ahemd\",\n            \"phone\": \"4363446356\",\n            \"payments\": [\n                {\n                    \"cardNumber\": \"4012001037141112\",\n                    \"expiry\": \"12/2027\",\n                    \"cvv\": \"343\",\n                    \"_id\": \"696e237d58f73a7e75a28f11\"\n                }\n            ],\n            \"addresses\": [\n                \"playfootball\"\n            ],\n            \"isAdmin\": true,\n            \"cart\": [],\n            \"createdAt\": \"2026-01-19T12:28:45.008Z\",\n            \"updatedAt\": \"2026-01-22T11:14:50.218Z\",\n            \"__v\": 0\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "edit user by id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"firstName\": \"tamer\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/users/696f4e82e4495008369f1e4f",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "696f4e82e4495008369f1e4f"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "edit user by id",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n\"firstName\": \"tamer\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/users/696f4e82e4495008369f1e4f",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "696f4e82e4495008369f1e4f"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "423"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1a7-Zs/EFG2ZaR1yxGZeyDqH/qj9sV8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 16:52:16 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"user\": {\n            \"_id\": \"696f4e82e4495008369f1e4f\",\n            \"userName\": \"f24\",\n            \"email\": \"mem@gam.com\",\n            \"firstName\": \"tamer\",\n            \"lastName\": \"pl2ay\",\n            \"phone\": \"4363346356\",\n            \"payments\": [\n                {\n                    \"cardNumber\": \"4012001037141112\",\n                    \"expiry\": \"12/2027\",\n                    \"cvv\": \"343\",\n                    \"_id\": \"696f4e82e4495008369f1e50\"\n                }\n            ],\n            \"addresses\": [\n                \"play2football\"\n            ],\n            \"isAdmin\": false,\n            \"cart\": [],\n            \"createdAt\": \"2026-01-20T09:44:34.192Z\",\n            \"updatedAt\": \"2026-01-22T16:52:16.023Z\",\n            \"__v\": 0\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "delete user by id",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\r\n    \"password\": \"p3224523\",\r\n    \"email\": \"mem0o@gam.com\"\r\n    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/users/6972552b3d7f2916eb2f8c6f",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "6972552b3d7f2916eb2f8c6f"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "delete user by id",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n\r\n    \"password\": \"p3224523\",\r\n    \"email\": \"mem0o@gam.com\"\r\n    \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/users/6972552b3d7f2916eb2f8c6f",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "users",
+                    "6972552b3d7f2916eb2f8c6f"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "50"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"32-J6hrDPywm8vhKi0yakGadUCdUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 16:53:13 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": \"deleted successfully\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "item": [
+        {
+          "name": "get all products",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/products?countAPage=2&page=3",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "countAPage",
+                  "value": "2"
+                },
+                {
+                  "key": "page",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get all products",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/products?countAPage=4&page=1",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "countAPage",
+                      "value": "4"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1136"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"470-iNcl1c3SljKkN2vstRLEjL2yIGQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 18:00:01 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"products\": [\n            {\n                \"_id\": \"696e8516728d062bf80c98ab\",\n                \"name\": \"phon4e11\",\n                \"description\": \"dsgsdas asf\",\n                \"stock\": 65,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": {\n                    \"_id\": \"696e8357d93307b4e1d1a2d4\",\n                    \"name\": \"electronics\"\n                },\n                \"createdAt\": \"2026-01-19T19:25:10.793Z\",\n                \"updatedAt\": \"2026-01-19T19:47:43.732Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696e8c09e009ff3f30a14a84\",\n                \"name\": \"phone11\",\n                \"description\": \"dsgsdas asf\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": {\n                    \"_id\": \"696e8357d93307b4e1d1a2d4\",\n                    \"name\": \"electronics\"\n                },\n                \"createdAt\": \"2026-01-19T19:54:49.148Z\",\n                \"updatedAt\": \"2026-01-19T19:54:49.148Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696e9387dd8d7d5f3e78e0da\",\n                \"name\": \"phone11\",\n                \"description\": \"dsgsdas asf\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": {\n                    \"_id\": \"696e8357d93307b4e1d1a2d4\",\n                    \"name\": \"electronics\"\n                },\n                \"createdAt\": \"2026-01-19T20:26:47.250Z\",\n                \"updatedAt\": \"2026-01-19T20:26:47.250Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696e9388dd8d7d5f3e78e0dd\",\n                \"name\": \"phone11\",\n                \"description\": \"dsgsdas asf\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": {\n                    \"_id\": \"696e8357d93307b4e1d1a2d4\",\n                    \"name\": \"electronics\"\n                },\n                \"createdAt\": \"2026-01-19T20:26:48.136Z\",\n                \"updatedAt\": \"2026-01-19T20:26:48.136Z\",\n                \"__v\": 0\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get a product by id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/products/696e8516728d062bf80c98ab",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "696e8516728d062bf80c98ab"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get a product by id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/products/696e8516728d062bf80c98ab",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "696e8516728d062bf80c98ab"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "359"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"167-3Pp2lEDqtR2x7mvk9VW4ophHzaQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 18:00:24 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"product\": {\n            \"_id\": \"696e8516728d062bf80c98ab\",\n            \"name\": \"phon4e11\",\n            \"description\": \"dsgsdas asf\",\n            \"stock\": 65,\n            \"price\": 5,\n            \"images\": [\n                \"wefweg\"\n            ],\n            \"category\": {\n                \"_id\": \"696e8357d93307b4e1d1a2d4\",\n                \"name\": \"electronics\",\n                \"description\": \"dsgsdas asf\",\n                \"image\": \"wefweg\"\n            },\n            \"createdAt\": \"2026-01-19T19:25:10.793Z\",\n            \"updatedAt\": \"2026-01-19T19:47:43.732Z\",\n            \"__v\": 0\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "add a new product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n      \"name\": \"p45\",\r\n      \"description\": \"dsg5dsg23sdas asf\",\r\n      \"stock\": 5,\r\n      \"price\": 5,\r\n      \"images\": [\"wefweg\"],\r\n      \"category\":\"electronics\"\r\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/products/",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "add a new product",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n      \"name\": \"p45\",\r\n      \"description\": \"dsg5dsg23sdas asf\",\r\n      \"stock\": 5,\r\n      \"price\": 5,\r\n      \"images\": [\"wefweg\"],\r\n      \"category\":\"electronics\"\r\n    }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/products/",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "285"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"11d-XWMvKFx+8tItjTjfGbY98tBQYfU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 18:01:03 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"product\": {\n            \"name\": \"p45\",\n            \"description\": \"dsg5dsg23sdas asf\",\n            \"stock\": 5,\n            \"price\": 5,\n            \"images\": [\n                \"wefweg\"\n            ],\n            \"category\": \"696e8357d93307b4e1d1a2d4\",\n            \"_id\": \"697265dfccdbfd58cc0dac8b\",\n            \"createdAt\": \"2026-01-22T18:01:03.443Z\",\n            \"updatedAt\": \"2026-01-22T18:01:03.443Z\",\n            \"__v\": 0\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "edit product by id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n      \"stock\": 65,\r\n      \"price\": 7\r\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/products/696f47b0c74e8360b453541b",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "696f47b0c74e8360b453541b"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "edit product by id",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n      \"stock\": 65,\r\n      \"price\": 7\r\n    }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/products/696f47b0c74e8360b453541b",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "696f47b0c74e8360b453541b"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "294"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"126-KA4dHsJLbu7lMc4nkpMcteDsxCM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 18:02:09 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"product\": {\n            \"_id\": \"696f47b0c74e8360b453541b\",\n            \"name\": \"phon4e11\",\n            \"description\": \"dsgsdas asf\",\n            \"stock\": 65,\n            \"price\": 7,\n            \"images\": [\n                \"wefweg\",\n                \"dsgdas\"\n            ],\n            \"category\": \"696e8357d93307b4e1d1a2d4\",\n            \"createdAt\": \"2026-01-20T09:15:28.306Z\",\n            \"updatedAt\": \"2026-01-22T18:02:09.870Z\",\n            \"__v\": 0\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "delete a product by id",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/products/696e9387dd8d7d5f3e78e0da",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "696e9387dd8d7d5f3e78e0da"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "delete a product by id",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/products/696e9387dd8d7d5f3e78e0da",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "696e9387dd8d7d5f3e78e0da"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "50"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"32-J6hrDPywm8vhKi0yakGadUCdUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 18:03:33 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": \"deleted successfully\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "categories",
+      "item": [
+        {
+          "name": "add a category",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n      \"name\": \"electronics\",\r\n      \"description\": \"dsgsdasdsg asf\",\r\n      \"image\": \"wefweg\"\r\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/categories/",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "categories",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "add a category",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n      \"name\": \"sfdhdde\",\r\n      \"description\": \"3534463wertgds\",\r\n      \"image\": \"wefweg\"\r\n    }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/categories/",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "226"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"e2-AnNzCYb1K4tbSo9MNhSHV57cAfo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 18:12:41 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"category\": {\n            \"name\": \"sfdhdde\",\n            \"description\": \"3534463wertgds\",\n            \"image\": \"wefweg\",\n            \"_id\": \"6972689965be05346f95e142\",\n            \"createdAt\": \"2026-01-22T18:12:41.371Z\",\n            \"updatedAt\": \"2026-01-22T18:12:41.371Z\",\n            \"__v\": 0\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get all categories",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/categories/",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "categories",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get all categories",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/categories/",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "784"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"310-FSCX34uOxr3/OdaLIHGXcTSnNOw\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 18:14:44 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"categories\": [\n            {\n                \"_id\": \"696e8357d93307b4e1d1a2d4\",\n                \"name\": \"electronics\",\n                \"description\": \"dsgsdas asf\",\n                \"image\": \"wefweg\",\n                \"createdAt\": \"2026-01-19T19:17:43.717Z\",\n                \"updatedAt\": \"2026-01-19T21:04:06.709Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696f3cd649ea6214b0b19785\",\n                \"name\": \"wefgwe\",\n                \"description\": \"dsgsdasdsg asf\",\n                \"image\": \"wefweg\",\n                \"createdAt\": \"2026-01-20T08:29:10.005Z\",\n                \"updatedAt\": \"2026-01-20T08:29:10.005Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"6972687d65be05346f95e13e\",\n                \"name\": \"sde\",\n                \"description\": \"3534463wertgds\",\n                \"image\": \"wefweg\",\n                \"createdAt\": \"2026-01-22T18:12:13.467Z\",\n                \"updatedAt\": \"2026-01-22T18:12:13.467Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"6972689965be05346f95e142\",\n                \"name\": \"sfdhdde\",\n                \"description\": \"3534463wertgds\",\n                \"image\": \"wefweg\",\n                \"createdAt\": \"2026-01-22T18:12:41.371Z\",\n                \"updatedAt\": \"2026-01-22T18:12:41.371Z\",\n                \"__v\": 0\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get a category by id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/categories/696e8357d93307b4e1d1a2d4",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "categories",
+                "696e8357d93307b4e1d1a2d4"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get a category by id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/categories/696e8357d93307b4e1d1a2d4",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "696e8357d93307b4e1d1a2d4"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "227"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"e3-2fAqnw70RmyxZff6M7thGrln3Vo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 18:15:02 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"category\": {\n            \"_id\": \"696e8357d93307b4e1d1a2d4\",\n            \"name\": \"electronics\",\n            \"description\": \"dsgsdas asf\",\n            \"image\": \"wefweg\",\n            \"createdAt\": \"2026-01-19T19:17:43.717Z\",\n            \"updatedAt\": \"2026-01-19T21:04:06.709Z\",\n            \"__v\": 0\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get products of Category by id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/categories/696e8357d93307b4e1d1a2d4/products",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "categories",
+                "696e8357d93307b4e1d1a2d4",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get products of Category by id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/categories/696e8357d93307b4e1d1a2d4/products",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "696e8357d93307b4e1d1a2d4",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "3232"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"ca0-IImYstnpFZhWo9vIT+W9qtYCxEY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 18:16:04 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"products\": [\n            {\n                \"_id\": \"696e8516728d062bf80c98ab\",\n                \"name\": \"phon4e11\",\n                \"description\": \"dsgsdas asf\",\n                \"stock\": 65,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": \"696e8357d93307b4e1d1a2d4\",\n                \"createdAt\": \"2026-01-19T19:25:10.793Z\",\n                \"updatedAt\": \"2026-01-19T19:47:43.732Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696e8c09e009ff3f30a14a84\",\n                \"name\": \"phone11\",\n                \"description\": \"dsgsdas asf\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": \"696e8357d93307b4e1d1a2d4\",\n                \"createdAt\": \"2026-01-19T19:54:49.148Z\",\n                \"updatedAt\": \"2026-01-19T19:54:49.148Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696e9389dd8d7d5f3e78e0e0\",\n                \"name\": \"phone11\",\n                \"description\": \"dsgsdas asf\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": \"696e8357d93307b4e1d1a2d4\",\n                \"createdAt\": \"2026-01-19T20:26:49.131Z\",\n                \"updatedAt\": \"2026-01-19T20:26:49.131Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696e938ddd8d7d5f3e78e0e3\",\n                \"name\": \"phone181\",\n                \"description\": \"dsgsdas asf\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": \"696e8357d93307b4e1d1a2d4\",\n                \"createdAt\": \"2026-01-19T20:26:53.482Z\",\n                \"updatedAt\": \"2026-01-19T20:26:53.482Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696e938fdd8d7d5f3e78e0e6\",\n                \"name\": \"phone5181\",\n                \"description\": \"dsgsdas asf\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": \"696e8357d93307b4e1d1a2d4\",\n                \"createdAt\": \"2026-01-19T20:26:55.149Z\",\n                \"updatedAt\": \"2026-01-19T20:26:55.149Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696e9392dd8d7d5f3e78e0e9\",\n                \"name\": \"phone75181\",\n                \"description\": \"dsgsdas asf\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": \"696e8357d93307b4e1d1a2d4\",\n                \"createdAt\": \"2026-01-19T20:26:58.773Z\",\n                \"updatedAt\": \"2026-01-19T20:26:58.773Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696e9394dd8d7d5f3e78e0ec\",\n                \"name\": \"phone7515481\",\n                \"description\": \"dsgsdas asf\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": \"696e8357d93307b4e1d1a2d4\",\n                \"createdAt\": \"2026-01-19T20:27:00.510Z\",\n                \"updatedAt\": \"2026-01-19T20:27:00.510Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696f477fc74e8360b453540a\",\n                \"name\": \"phone7515481\",\n                \"description\": \"dsg5dsg23sdas asf\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": \"696e8357d93307b4e1d1a2d4\",\n                \"createdAt\": \"2026-01-20T09:14:39.946Z\",\n                \"updatedAt\": \"2026-01-20T09:14:39.946Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696f478cc74e8360b453540d\",\n                \"name\": \"phone7515481\",\n                \"description\": \"dsg5dsg23sdas asf\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": \"696e8357d93307b4e1d1a2d4\",\n                \"createdAt\": \"2026-01-20T09:14:52.603Z\",\n                \"updatedAt\": \"2026-01-20T09:14:52.603Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696f4798c74e8360b4535412\",\n                \"name\": \"p45\",\n                \"description\": \"dsg5dsg23sdas asf\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": \"696e8357d93307b4e1d1a2d4\",\n                \"createdAt\": \"2026-01-20T09:15:04.728Z\",\n                \"updatedAt\": \"2026-01-20T09:15:04.728Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696f479bc74e8360b4535415\",\n                \"name\": \"p45\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": \"696e8357d93307b4e1d1a2d4\",\n                \"createdAt\": \"2026-01-20T09:15:07.733Z\",\n                \"updatedAt\": \"2026-01-20T09:15:07.733Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"696f47b0c74e8360b453541b\",\n                \"name\": \"phon4e11\",\n                \"description\": \"dsgsdas asf\",\n                \"stock\": 65,\n                \"price\": 7,\n                \"images\": [\n                    \"wefweg\",\n                    \"dsgdas\"\n                ],\n                \"category\": \"696e8357d93307b4e1d1a2d4\",\n                \"createdAt\": \"2026-01-20T09:15:28.306Z\",\n                \"updatedAt\": \"2026-01-22T18:02:09.870Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"697265dfccdbfd58cc0dac8b\",\n                \"name\": \"p45\",\n                \"description\": \"dsg5dsg23sdas asf\",\n                \"stock\": 5,\n                \"price\": 5,\n                \"images\": [\n                    \"wefweg\"\n                ],\n                \"category\": \"696e8357d93307b4e1d1a2d4\",\n                \"createdAt\": \"2026-01-22T18:01:03.443Z\",\n                \"updatedAt\": \"2026-01-22T18:01:03.443Z\",\n                \"__v\": 0\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "edit a category by id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n      \"name\": \"electronics2\",\r\n      \"description\": \"dsgsdas af\",\r\n      \"image\": \"link.com\"\r\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/categories/6972689965be05346f95e142",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "categories",
+                "6972689965be05346f95e142"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "edit a category by id",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n      \"name\": \"electronics2\",\r\n      \"description\": \"dsgsdas af\",\r\n      \"image\": \"link.com\"\r\n    }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/categories/6972689965be05346f95e142",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "6972689965be05346f95e142"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "229"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"e5-EkQNgYSzSM3Qz5wFBH5iNJI++W4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 18:17:13 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"category\": {\n            \"_id\": \"6972689965be05346f95e142\",\n            \"name\": \"electronics2\",\n            \"description\": \"dsgsdas af\",\n            \"image\": \"link.com\",\n            \"createdAt\": \"2026-01-22T18:12:41.371Z\",\n            \"updatedAt\": \"2026-01-22T18:17:13.160Z\",\n            \"__v\": 0\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "delete a category by id Copy",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/categories/6972687d65be05346f95e13e",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "categories",
+                "6972687d65be05346f95e13e"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "delete a category by id Copy",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/categories/6972687d65be05346f95e13e",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "6972687d65be05346f95e13e"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "50"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"32-J6hrDPywm8vhKi0yakGadUCdUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 18:18:28 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": \"deleted successfully\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cart",
+      "item": [
+        {
+          "name": "add a product to cart",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n      \"productId\": \"696e9392dd8d7d5f3e78e0e9\",\r\n      \"quantity\": \"1\"\r\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/cart/add",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "cart",
+                "add"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "add a product to cart",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n      \"productId\": \"696e9392dd8d7d5f3e78e0e9\",\r\n      \"quantity\": \"1\"\r\n    }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/cart/add",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "cart",
+                    "add"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "314"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"13a-KLIcII0GY76Kh1tQTojB4a4rtv4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 23 Jan 2026 15:20:12 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"cart\": [\n            {\n                \"product\": {\n                    \"_id\": \"696e938fdd8d7d5f3e78e0e6\",\n                    \"name\": \"phone5181\",\n                    \"stock\": 5,\n                    \"price\": 5\n                },\n                \"quantity\": 1,\n                \"_id\": \"6973912429e3c515711b3490\"\n            },\n            {\n                \"product\": {\n                    \"_id\": \"696e9392dd8d7d5f3e78e0e9\",\n                    \"name\": \"phone75181\",\n                    \"stock\": 5,\n                    \"price\": 5\n                },\n                \"quantity\": 2,\n                \"_id\": \"697391a7aab33518000e27dc\"\n            }\n        ],\n        \"total\": 15\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get cart products",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}} /api/cart/",
+              "host": [
+                "{{ecommerce}} "
+              ],
+              "path": [
+                "api",
+                "cart",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get cart products",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}} /api/cart/",
+                  "host": [
+                    "{{ecommerce}} "
+                  ],
+                  "path": [
+                    "api",
+                    "cart",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "314"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"13a-KLIcII0GY76Kh1tQTojB4a4rtv4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 23 Jan 2026 15:20:38 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"cart\": [\n            {\n                \"product\": {\n                    \"_id\": \"696e938fdd8d7d5f3e78e0e6\",\n                    \"name\": \"phone5181\",\n                    \"stock\": 5,\n                    \"price\": 5\n                },\n                \"quantity\": 1,\n                \"_id\": \"6973912429e3c515711b3490\"\n            },\n            {\n                \"product\": {\n                    \"_id\": \"696e9392dd8d7d5f3e78e0e9\",\n                    \"name\": \"phone75181\",\n                    \"stock\": 5,\n                    \"price\": 5\n                },\n                \"quantity\": 2,\n                \"_id\": \"697391a7aab33518000e27dc\"\n            }\n        ],\n        \"total\": 15\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "delete whole cart",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}} /api/cart/",
+              "host": [
+                "{{ecommerce}} "
+              ],
+              "path": [
+                "api",
+                "cart",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "delete whole cart",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}} /api/cart/",
+                  "host": [
+                    "{{ecommerce}} "
+                  ],
+                  "path": [
+                    "api",
+                    "cart",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "60"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3c-WASXcoxBTzJv43j6Bmw+ksvdNRo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 21:37:17 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": \"the cart is empty successfully\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "delete a product from cart",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}} /api/cart/696e9392dd8d7d5f3e78e0e9",
+              "host": [
+                "{{ecommerce}} "
+              ],
+              "path": [
+                "api",
+                "cart",
+                "696e9392dd8d7d5f3e78e0e9"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "delete a product from cart",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}} /api/cart/696e9392dd8d7d5f3e78e0e9",
+                  "host": [
+                    "{{ecommerce}} "
+                  ],
+                  "path": [
+                    "api",
+                    "cart",
+                    "696e9392dd8d7d5f3e78e0e9"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "180"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"b4-jcUBElHhyos7xDtRCjalWUU+4r0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 23 Jan 2026 15:22:55 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"cart\": [\n            {\n                \"product\": {\n                    \"_id\": \"696e938fdd8d7d5f3e78e0e6\",\n                    \"name\": \"phone5181\",\n                    \"stock\": 5,\n                    \"price\": 5\n                },\n                \"quantity\": 1,\n                \"_id\": \"6973912429e3c515711b3490\"\n            }\n        ],\n        \"total\": 5\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "edit a product quantity from cart",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n      \"quantity\": \"5\"\r\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}} /api/cart/696e938ddd8d7d5f3e78e0e3",
+              "host": [
+                "{{ecommerce}} "
+              ],
+              "path": [
+                "api",
+                "cart",
+                "696e938ddd8d7d5f3e78e0e3"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "edit a product quantity from cart",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n      \"quantity\": \"5\"\r\n    }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}} /api/cart/696e938ddd8d7d5f3e78e0e3",
+                  "host": [
+                    "{{ecommerce}} "
+                  ],
+                  "path": [
+                    "api",
+                    "cart",
+                    "696e938ddd8d7d5f3e78e0e3"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "315"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"13b-JLbZuvlnJlFKJ0S4b/nt70dI1ts\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 22 Jan 2026 21:39:20 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"cart\": [\n            {\n                \"product\": {\n                    \"_id\": \"696e9389dd8d7d5f3e78e0e0\",\n                    \"name\": \"phone11\",\n                    \"stock\": 5,\n                    \"price\": 5\n                },\n                \"quantity\": 4,\n                \"_id\": \"697298aa68f4d0b9fd40fecb\"\n            },\n            {\n                \"product\": {\n                    \"_id\": \"696e938ddd8d7d5f3e78e0e3\",\n                    \"name\": \"phone181\",\n                    \"stock\": 5,\n                    \"price\": 5\n                },\n                \"quantity\": 5,\n                \"_id\": \"697298cc68f4d0b9fd40feda\"\n            }\n        ],\n        \"totalPrice\": 45\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "make an order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              },
+              {
+                "key": "token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTczMWY0Y2Q3ZjI3OGJjYjk2ODQzMjAiLCJlbWFpbCI6Im1lbXdzb0BnYW0uY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTc2OTE1MjMzMiwiZXhwIjoxNzY5NzU3MTMyfQ.ddfHzSnDi6dglGv0Am7fnVgxGRoygO42mLziDf-ggwY",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"paymentIndex\" : \"0\",\r\n\"addressIndex\":\"0\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/orders",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "orders"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "make an order",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTczMWY0Y2Q3ZjI3OGJjYjk2ODQzMjAiLCJlbWFpbCI6Im1lbXdzb0BnYW0uY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTc2OTE1MjMzMiwiZXhwIjoxNzY5NzU3MTMyfQ.ddfHzSnDi6dglGv0Am7fnVgxGRoygO42mLziDf-ggwY",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"paymentIndex\" : \"0\",\r\n\"addressIndex\":\"0\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/orders",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "407"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"197-VYzdsBaBzxGsQRMC5+KMkivcT5U\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 23 Jan 2026 12:47:56 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"order\": {\n            \"user\": \"696e237c58f73a7e75a28f10\",\n            \"items\": [\n                {\n                    \"product\": {\n                        \"_id\": \"696e938fdd8d7d5f3e78e0e6\",\n                        \"name\": \"phone5181\",\n                        \"stock\": 5,\n                        \"price\": 5\n                    },\n                    \"quantity\": 5,\n                    \"price\": 5,\n                    \"_id\": \"69736dfcc60519dfe9b5b86e\"\n                }\n            ],\n            \"shippingAddress\": \"playfootball\",\n            \"status\": \"pending\",\n            \"total\": 25,\n            \"_id\": \"69736dfcc60519dfe9b5b86d\",\n            \"createdAt\": \"2026-01-23T12:47:56.443Z\",\n            \"updatedAt\": \"2026-01-23T12:47:56.443Z\",\n            \"__v\": 0\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get user orders",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/orders",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "orders"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get user orders",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/orders",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1009"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f1-Oi5DVM6PINFug80qOdAcY+KC0pg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 23 Jan 2026 12:50:49 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"orders\": [\n            {\n                \"_id\": \"6973628f90e90377b9316c54\",\n                \"user\": \"696e237c58f73a7e75a28f10\",\n                \"items\": [\n                    {\n                        \"product\": \"696f47b0c74e8360b453541b\",\n                        \"quantity\": 5,\n                        \"price\": 7,\n                        \"_id\": \"6973628f90e90377b9316c55\"\n                    }\n                ],\n                \"shippingAddress\": \"playfootball\",\n                \"status\": \"pending\",\n                \"total\": 35,\n                \"createdAt\": \"2026-01-23T11:59:11.094Z\",\n                \"updatedAt\": \"2026-01-23T11:59:11.094Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"697362e22f474bd8a8bb352c\",\n                \"user\": \"696e237c58f73a7e75a28f10\",\n                \"items\": [\n                    {\n                        \"product\": \"696f47b0c74e8360b453541b\",\n                        \"quantity\": 5,\n                        \"price\": 7,\n                        \"_id\": \"697362e22f474bd8a8bb352d\"\n                    }\n                ],\n                \"shippingAddress\": \"playfootball\",\n                \"status\": \"pending\",\n                \"total\": 35,\n                \"createdAt\": \"2026-01-23T12:00:34.409Z\",\n                \"updatedAt\": \"2026-01-23T12:00:34.409Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"69736dfcc60519dfe9b5b86d\",\n                \"user\": \"696e237c58f73a7e75a28f10\",\n                \"items\": [\n                    {\n                        \"product\": \"696e938fdd8d7d5f3e78e0e6\",\n                        \"quantity\": 5,\n                        \"price\": 5,\n                        \"_id\": \"69736dfcc60519dfe9b5b86e\"\n                    }\n                ],\n                \"shippingAddress\": \"playfootball\",\n                \"status\": \"pending\",\n                \"total\": 25,\n                \"createdAt\": \"2026-01-23T12:47:56.443Z\",\n                \"updatedAt\": \"2026-01-23T12:47:56.443Z\",\n                \"__v\": 0\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get all orders for admins only",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/orders/all",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "all"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get all orders for admins only",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/orders/all",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "all"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1009"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f1-Oi5DVM6PINFug80qOdAcY+KC0pg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 23 Jan 2026 12:51:19 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"orders\": [\n            {\n                \"_id\": \"6973628f90e90377b9316c54\",\n                \"user\": \"696e237c58f73a7e75a28f10\",\n                \"items\": [\n                    {\n                        \"product\": \"696f47b0c74e8360b453541b\",\n                        \"quantity\": 5,\n                        \"price\": 7,\n                        \"_id\": \"6973628f90e90377b9316c55\"\n                    }\n                ],\n                \"shippingAddress\": \"playfootball\",\n                \"status\": \"pending\",\n                \"total\": 35,\n                \"createdAt\": \"2026-01-23T11:59:11.094Z\",\n                \"updatedAt\": \"2026-01-23T11:59:11.094Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"697362e22f474bd8a8bb352c\",\n                \"user\": \"696e237c58f73a7e75a28f10\",\n                \"items\": [\n                    {\n                        \"product\": \"696f47b0c74e8360b453541b\",\n                        \"quantity\": 5,\n                        \"price\": 7,\n                        \"_id\": \"697362e22f474bd8a8bb352d\"\n                    }\n                ],\n                \"shippingAddress\": \"playfootball\",\n                \"status\": \"pending\",\n                \"total\": 35,\n                \"createdAt\": \"2026-01-23T12:00:34.409Z\",\n                \"updatedAt\": \"2026-01-23T12:00:34.409Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"69736dfcc60519dfe9b5b86d\",\n                \"user\": \"696e237c58f73a7e75a28f10\",\n                \"items\": [\n                    {\n                        \"product\": \"696e938fdd8d7d5f3e78e0e6\",\n                        \"quantity\": 5,\n                        \"price\": 5,\n                        \"_id\": \"69736dfcc60519dfe9b5b86e\"\n                    }\n                ],\n                \"shippingAddress\": \"playfootball\",\n                \"status\": \"pending\",\n                \"total\": 25,\n                \"createdAt\": \"2026-01-23T12:47:56.443Z\",\n                \"updatedAt\": \"2026-01-23T12:47:56.443Z\",\n                \"__v\": 0\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get user orders by userid for admins only",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/orders/user/696e237c58f73a7e75a28f10",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "user",
+                "696e237c58f73a7e75a28f10"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get user orders by userid for admins only",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/orders/user/696e237c58f73a7e75a28f10",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "user",
+                    "696e237c58f73a7e75a28f10"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1009"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f1-Oi5DVM6PINFug80qOdAcY+KC0pg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 23 Jan 2026 12:52:40 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"orders\": [\n            {\n                \"_id\": \"6973628f90e90377b9316c54\",\n                \"user\": \"696e237c58f73a7e75a28f10\",\n                \"items\": [\n                    {\n                        \"product\": \"696f47b0c74e8360b453541b\",\n                        \"quantity\": 5,\n                        \"price\": 7,\n                        \"_id\": \"6973628f90e90377b9316c55\"\n                    }\n                ],\n                \"shippingAddress\": \"playfootball\",\n                \"status\": \"pending\",\n                \"total\": 35,\n                \"createdAt\": \"2026-01-23T11:59:11.094Z\",\n                \"updatedAt\": \"2026-01-23T11:59:11.094Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"697362e22f474bd8a8bb352c\",\n                \"user\": \"696e237c58f73a7e75a28f10\",\n                \"items\": [\n                    {\n                        \"product\": \"696f47b0c74e8360b453541b\",\n                        \"quantity\": 5,\n                        \"price\": 7,\n                        \"_id\": \"697362e22f474bd8a8bb352d\"\n                    }\n                ],\n                \"shippingAddress\": \"playfootball\",\n                \"status\": \"pending\",\n                \"total\": 35,\n                \"createdAt\": \"2026-01-23T12:00:34.409Z\",\n                \"updatedAt\": \"2026-01-23T12:00:34.409Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"69736dfcc60519dfe9b5b86d\",\n                \"user\": \"696e237c58f73a7e75a28f10\",\n                \"items\": [\n                    {\n                        \"product\": \"696e938fdd8d7d5f3e78e0e6\",\n                        \"quantity\": 5,\n                        \"price\": 5,\n                        \"_id\": \"69736dfcc60519dfe9b5b86e\"\n                    }\n                ],\n                \"shippingAddress\": \"playfootball\",\n                \"status\": \"pending\",\n                \"total\": 25,\n                \"createdAt\": \"2026-01-23T12:47:56.443Z\",\n                \"updatedAt\": \"2026-01-23T12:47:56.443Z\",\n                \"__v\": 0\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get order by id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/orders/6973628f90e90377b9316c54",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "6973628f90e90377b9316c54"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get order by id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/orders/6973628f90e90377b9316c54",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "6973628f90e90377b9316c54"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "360"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"168-oPYsKfXbMfXyrk7Qxp8Z8rXtH6Q\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 23 Jan 2026 13:10:30 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"order\": {\n            \"_id\": \"6973628f90e90377b9316c54\",\n            \"user\": \"696e237c58f73a7e75a28f10\",\n            \"items\": [\n                {\n                    \"product\": \"696f47b0c74e8360b453541b\",\n                    \"quantity\": 5,\n                    \"price\": 7,\n                    \"_id\": \"6973628f90e90377b9316c55\"\n                }\n            ],\n            \"shippingAddress\": \"playfootball\",\n            \"status\": \"pending\",\n            \"total\": 35,\n            \"createdAt\": \"2026-01-23T11:59:11.094Z\",\n            \"updatedAt\": \"2026-01-23T11:59:11.094Z\",\n            \"__v\": 0\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "change order status by id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTZlMjM3YzU4ZjczYTdlNzVhMjhmMTAiLCJlbWFpbCI6Im1lbW9AZ2FtLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2ODkwMjMxMywiZXhwIjoxNzY5MDc1MTEzfQ.7-Ej0PV8lTC6Tc3DfiAruk0YD7zKS2h8xg98Vv-424",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTczNzdiYjJlYzk3ZjIyOWJjZWY5NjUiLCJlbWFpbCI6Im1lbXdzZW9AZ2FtLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3NjkxNzQ5NzEsImV4cCI6MTc2OTc3OTc3MX0.pQvHT_7j4jjFFp_A9_jBEI9TJOqLHF1RqIwEc7YlqcU",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"status\":\"cancelled\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/orders/6973628f90e90377b9316c54",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "6973628f90e90377b9316c54"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "change order status by id",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTZlMjM3YzU4ZjczYTdlNzVhMjhmMTAiLCJlbWFpbCI6Im1lbW9AZ2FtLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTc2ODkwMjMxMywiZXhwIjoxNzY5MDc1MTEzfQ.7-Ej0PV8lTC6Tc3DfiAruk0YD7zKS2h8xg98Vv-424",
+                    "type": "text",
+                    "disabled": true
+                  },
+                  {
+                    "key": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTczNzdiYjJlYzk3ZjIyOWJjZWY5NjUiLCJlbWFpbCI6Im1lbXdzZW9AZ2FtLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3NjkxNzQ5NzEsImV4cCI6MTc2OTc3OTc3MX0.pQvHT_7j4jjFFp_A9_jBEI9TJOqLHF1RqIwEc7YlqcU",
+                    "type": "text",
+                    "disabled": true
+                  },
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"status\":\"cancelled\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/orders/6973628f90e90377b9316c54",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "6973628f90e90377b9316c54"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "362"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"16a-S9aVo7bvtbUUWDd+QrzWSf+oafM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 23 Jan 2026 13:33:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"order\": {\n            \"_id\": \"6973628f90e90377b9316c54\",\n            \"user\": \"696e237c58f73a7e75a28f10\",\n            \"items\": [\n                {\n                    \"product\": \"696f47b0c74e8360b453541b\",\n                    \"quantity\": 5,\n                    \"price\": 7,\n                    \"_id\": \"6973628f90e90377b9316c55\"\n                }\n            ],\n            \"shippingAddress\": \"playfootball\",\n            \"status\": \"cancelled\",\n            \"total\": 35,\n            \"createdAt\": \"2026-01-23T11:59:11.094Z\",\n            \"updatedAt\": \"2026-01-23T13:33:27.783Z\",\n            \"__v\": 0\n        }\n    }\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "ecommerce",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

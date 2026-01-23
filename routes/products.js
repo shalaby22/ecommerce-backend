@@ -6,6 +6,7 @@ const { Category } = require("../models/categories-model");
 
 const { verifyTokenForAdmin } = require("../middlewares/verifytoken");
 const { FailError } = require("../middlewares/errors");
+const isValidObjectId = require("../utils/isValidObjectId");
 
 /**
 
@@ -40,6 +41,9 @@ router.route("/").get(
 
 router.route("/:id").get(
   asyncHandler(async (req, res) => {
+    if (!isValidObjectId(req.params.id)) {
+      throw new FailError("that is not a valid productId", 400);
+    }
     const myProduct = await Product.findById(req.params.id).populate(
       "category",
       ["name", "image", "description"],
@@ -108,6 +112,9 @@ router.route("/").post(
 router.route("/:id").put(
   verifyTokenForAdmin,
   asyncHandler(async (req, res) => {
+    if (!isValidObjectId(req.params.id)) {
+      throw new FailError("that is not a valid productId", 400);
+    }
     const myProduct = await Product.findById(req.params.id);
     if (!myProduct) {
       throw new FailError("didn't find that product", 404);
@@ -158,10 +165,12 @@ router.route("/:id").put(
 router.route("/:id").delete(
   verifyTokenForAdmin,
   asyncHandler(async (req, res) => {
+    if (!isValidObjectId(req.params.id)) {
+      throw new FailError("that is not a valid productId", 400);
+    }
     const myProduct = await Product.findById(req.params.id);
     if (!myProduct) {
       throw new FailError("didn't find that product", 404);
-
     }
 
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);

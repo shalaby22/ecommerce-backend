@@ -17,6 +17,12 @@ const db = async function () {
 };
 db();
 
+const cors = require("cors");
+const helmet = require("helmet");
+app.use(helmet());
+app.use(cors());
+
+
 const authRoute = require("./routes/auth");
 const usersRoute = require("./routes/users");
 const productsRoute = require("./routes/products");
@@ -24,10 +30,7 @@ const categoriesRoute = require("./routes/categories.js");
 const cartRoute = require("./routes/cart.js");
 const ordersRoute = require("./routes/orders.js");
 
-app.get("/", (req, res) => {
-  throw new Error("hhhh");
-  res.send("Hello World");
-});
+
 app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/products", productsRoute);
@@ -35,17 +38,14 @@ app.use("/api/categories", categoriesRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/orders", ordersRoute);
 
-
-
-const {notFound,errHandler} = require("./middlewares/errors");
-
-
+const { notFound, errHandler } = require("./middlewares/errors");
 
 app.use(notFound);
-
 app.use(errHandler);
 
 // app execution
-app.listen(3000, () => {
-  console.log("Server is running on http://localhost:3000");
+app.listen(process.env.PORT, () => {
+  console.log(
+    `Server is running on port ${process.env.PORT} in ${process.env.NODE_ENV} mode`,
+  );
 });

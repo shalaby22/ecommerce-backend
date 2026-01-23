@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-
 const asyncHandler = require("express-async-handler");
 
 const { User } = require("../models/users-model");
@@ -13,11 +12,12 @@ const {
 
 const {
   verifyTokenForAdmin,
-  verifyTokenForAuthOrAdmin,
   verifyToken,
 } = require("../middlewares/verifytoken");
 
-const {FailError,serverError} = require("../middlewares/errors")
+const { FailError } = require("../middlewares/errors");
+const { verifyCartProducts } = require("../utils/verifyCartProducts");
+const isValidObjectId = require("../utils/isValidObjectId");
 /**
 
  * @decs  make an order
@@ -29,55 +29,61 @@ const {FailError,serverError} = require("../middlewares/errors")
 router.route("/").post(
   verifyToken,
   asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id).select();
+    const user = await User.findById(req.user._id).populate({
+      path: "cart.product",
+      select: "name price stock",
+    });
 
-    if (!user) {
-      return res.status(400).json("didn't find your user");
-    } else if (!user.cart[0]) {
-      return res.status(400).json("your cart is empty");
+    const { edited } = verifyCartProducts(user.cart);
+
+    if (edited) {
+      throw new FailError("your cart contains invalid product", 400);
+    }
+
+    if (!user.cart[0]) {
+      throw new FailError("your cart is empty", 400);
     }
     const { error } = validateNewOrder(req.body);
 
     if (error) {
-      return res.status(400).json(error.details[0].message);
+      throw new FailError(error.details[0].message, 400);
     }
 
     const addressIndex = req.body.addressIndex;
 
     if (!user.addresses[+addressIndex]) {
-      return res.status(400).json("this address index is empty");
+      throw new FailError("this address index is empty", 400);
     }
     const paymentIndex = req.body.paymentIndex;
     if (!user.payments[+paymentIndex]) {
-      return res.status(400).json("this payment index is empty");
+      throw new FailError("this payment index is empty", 400);
     }
 
-
-
     //todo separate stock validation in a function below
-    let total = 0;
+
     let items = [];
     for (let i = 0; i < user.cart.length; i++) {
-      const myProduct = await Product.findById(user.cart[i].product).select();
+      const myProduct = await Product.findById(user.cart[i].product._id);
       if (!myProduct) {
-        return res
-          .status(404)
-          .json(`didn't find that product ${user.cart[i].product}`);
+        throw new FailError(
+          `didn't find that product index ${user.cart[i].product}`,
+          404,
+        );
       } else if (myProduct.stock < user.cart[i].quantity) {
-        return res
-          .status(400)
-          .json(
-            `the stock is not enough for that product ${user.cart[i].product}`,
-          );
+        throw new FailError(
+          `the stock is not enough for that product ${user.cart[i].product}`,
+          400,
+        );
       } else {
         items[i] = {
           product: user.cart[i].product,
           quantity: user.cart[i].quantity,
-          price: myProduct.price,
+          price: user.cart[i].product.price,
         };
-        total += myProduct.price * user.cart[i].quantity;
       }
     }
+    const total = user.cartPrice();
+
     //todo add payment verification
     const newOrder = new Order({
       user: req.user._id,
@@ -89,7 +95,13 @@ router.route("/").post(
 
     const saved = await newOrder.save();
 
-    res.status(200).json(saved);
+    user.cart = [];
+    await user.save();
+
+    return res.status(200).json({
+      status: "success",
+      data: { order: saved },
+    });
   }),
 );
 
@@ -105,8 +117,10 @@ router.route("/").get(
   verifyToken,
   asyncHandler(async (req, res) => {
     const myOrders = await Order.find({ user: req.user._id });
-
-    res.status(200).json(myOrders);
+    return res.status(200).json({
+      status: "success",
+      data: { orders: myOrders },
+    });
   }),
 );
 
@@ -121,8 +135,33 @@ router.route("/").get(
 router.route("/user/:userId").get(
   verifyTokenForAdmin,
   asyncHandler(async (req, res) => {
+    if (!isValidObjectId(req.params.userId)) {
+      throw new FailError("that is not a valid userId", 400);
+    }
     const orders = await Order.find({ user: req.params.userId });
-    res.status(200).json(orders);
+    return res.status(200).json({
+      status: "success",
+      data: { orders: orders },
+    });
+  }),
+);
+
+/**
+
+ * @decs  get all orders
+ * @route /api/orders/all
+ * @method get
+ * @access admin only  
+ */
+
+router.route("/all").get(
+  verifyTokenForAdmin,
+  asyncHandler(async (req, res) => {
+    const orders = await Order.find();
+    return res.status(200).json({
+      status: "success",
+      data: { orders: orders },
+    });
   }),
 );
 
@@ -137,12 +176,20 @@ router.route("/user/:userId").get(
 router.route("/:orderId").get(
   verifyToken,
   asyncHandler(async (req, res) => {
+    if (!isValidObjectId(req.params.orderId)) {
+      throw new FailError("that is not a valid orderId", 400);
+    }
     const myOrder = await Order.findById(req.params.orderId);
-
+    if (!myOrder) {
+      throw new FailError("didn't find that order", 404);
+    }
     if (myOrder.user == req.user._id || req.user.isAdmin) {
-      return res.status(200).json(myOrder);
+      return res.status(200).json({
+        status: "success",
+        data: { order: myOrder },
+      });
     } else {
-      return res.status(401).json("not allowed to see another one order");
+      throw new FailError("not allowed to see another one order", 401);
     }
   }),
 );
@@ -157,17 +204,26 @@ router.route("/:orderId").get(
 router.route("/:orderId").put(
   verifyTokenForAdmin,
   asyncHandler(async (req, res) => {
+    if (!isValidObjectId(req.params.orderId)) {
+      throw new FailError("that is not a valid orderId", 400);
+    }
     const myOrder = await Order.findById(req.params.orderId);
-
+    if (!myOrder) {
+      throw new FailError("didn't find that order", 404);
+    }
     const { error } = validateEditOrderStatus(req.body);
 
     if (error) {
-      return res.status(400).json(error.details[0].message);
+      throw new FailError(error.details[0].message, 400);
     }
 
     myOrder.status = req.body.status;
     const edited = await myOrder.save();
-    return res.status(200).json(edited);
+
+    return res.status(200).json({
+      status: "success",
+      data: { order: edited },
+    });
   }),
 );
 
