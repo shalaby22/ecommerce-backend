@@ -88,7 +88,6 @@ router.route("/register").post(
       await myUser.save();
     } catch (error) {
       if (error.code === 11000) {
-        console.log(error);
         const field = Object.keys(error.keyValue)[0];
         throw new FailError(`this ${field} already exists`, 400);
       }
