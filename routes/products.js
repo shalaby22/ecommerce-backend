@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { verifyTokenForAdmin } = require("../middlewares/verifytoken");
+const {
+  verifyAdmin,
+  verifyToken,
+} = require("../middlewares/verifytoken");
 const { validate } = require("../middlewares/validateJoi");
 const { validateProduct } = require("../validators/products-validator");
 
@@ -15,11 +18,11 @@ const {
 router
   .route("/")
   .get(getAllProducts)
-  .post(verifyTokenForAdmin, validate(validateProduct, "post"), addProduct);
+  .post(verifyToken , verifyAdmin, validate(validateProduct, "post"), addProduct);
 router
   .route("/:id")
   .get(getProduct)
-  .put(verifyTokenForAdmin, validate(validateProduct, "put"), editProduct)
-  .delete(verifyTokenForAdmin, deleteProduct);
+  .put(verifyToken , verifyAdmin, validate(validateProduct, "put"), editProduct)
+  .delete(verifyToken , verifyAdmin, deleteProduct);
 
 module.exports = router;

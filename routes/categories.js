@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { verifyTokenForAdmin } = require("../middlewares/verifytoken");
+const {
+  verifyAdmin,
+  verifyToken,
+} = require("../middlewares/verifytoken");
 const { validate } = require("../middlewares/validateJoi");
 const { validateCategory } = require("../validators/categories-validator");
 
@@ -16,13 +19,13 @@ const {
 router
   .route("/")
   .get(getAllCategories)
-  .post(verifyTokenForAdmin, validate(validateCategory, "post"), addCategory);
+  .post(verifyToken , verifyAdmin, validate(validateCategory, "post"), addCategory);
 
 router
   .route("/:id")
   .get(getCategory)
-  .put(verifyTokenForAdmin,validate(validateCategory, "put"), editCategory)
-  .delete(verifyTokenForAdmin, deleteCategory);
+  .put(verifyToken , verifyAdmin,validate(validateCategory, "put"), editCategory)
+  .delete(verifyToken , verifyAdmin, deleteCategory);
 
 router.route("/:id/products").get(getProductsOfCategory);
 

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  verifyTokenForAdmin,
+  verifyAdmin,
   verifyToken,
 } = require("../middlewares/verifytoken");
 
@@ -26,13 +26,13 @@ router
   .post(verifyToken, validate(validateNewOrder), makeOrder)
   .get(verifyToken, getUserOrders);
 
-router.route("/user/:userId").get(verifyTokenForAdmin, getOrdersByUserId);
+router.route("/user/:userId").get(verifyToken , verifyAdmin, getOrdersByUserId);
 
-router.route("/all").get(verifyTokenForAdmin, getAllOrders);
+router.route("/all").get(verifyToken , verifyAdmin, getAllOrders);
 
 router
   .route("/:orderId")
   .get(verifyToken, getOrderById)
-  .put(verifyTokenForAdmin, validate(validateEditOrderStatus),changeOrderStatusById);
+  .put(verifyToken , verifyAdmin, validate(validateEditOrderStatus),changeOrderStatusById);
 
 module.exports = router;

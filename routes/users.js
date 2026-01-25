@@ -3,8 +3,6 @@ const router = express.Router();
 const {validate} = require("../middlewares/validateJoi");
 const { validateRegister} = require("../validators/users-validator")
 const {
-  verifyTokenForAdmin,
-  verifyTokenForAuthOrAdmin,
   verifyAdmin,
   verifyToken,
   verifyAuthOrAdmin
