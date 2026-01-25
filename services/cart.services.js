@@ -24,6 +24,7 @@ const addItemToCartFunc = async function (reqBody, reqUser) {
   const myProduct = await Product.findById(reqBody.productId).select(
     "name price stock",
   );
+
   if (!myProduct) {
     throw new FailError("didn't find that product", 404);
   } else if (myProduct.stock < reqBody.quantity) {
@@ -135,6 +136,7 @@ const editProductFromCartFunc = async function (productId, reqUser, reqBody) {
   let done = false;
 
   const myProduct = await Product.findById(productId).select();
+  
   if (!myProduct) {
     throw new FailError("didn't find that product", 404);
   } else if (myProduct.stock < reqBody.quantity) {

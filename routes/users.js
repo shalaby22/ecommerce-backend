@@ -5,6 +5,9 @@ const { validateRegister} = require("../validators/users-validator")
 const {
   verifyTokenForAdmin,
   verifyTokenForAuthOrAdmin,
+  verifyAdmin,
+  verifyToken,
+  verifyAuthOrAdmin
 } = require("../middlewares/verifytoken");
 
 const {
@@ -14,11 +17,11 @@ const {
   deleteUser,
 } = require("../Controllers/users.controller");
 
-router.route("/").get(verifyTokenForAdmin, getAllUsers);
+router.route("/").get(verifyToken,verifyAdmin, getAllUsers);
 router
   .route("/:id")
-  .get(verifyTokenForAuthOrAdmin, getUser)
-  .put(verifyTokenForAuthOrAdmin,validate(validateRegister,"put"), updateUser)
-  .delete(verifyTokenForAuthOrAdmin, deleteUser);
+  .get(verifyToken,verifyAuthOrAdmin, getUser)
+  .put(verifyToken,verifyAuthOrAdmin,validate(validateRegister,"put"), updateUser)
+  .delete(verifyToken,verifyAuthOrAdmin,deleteUser);
 
 module.exports = router;

@@ -14,9 +14,7 @@ const { FailError } = require("../middlewares/errors");
  */
 const loginFunc = async function (reqBody) {
   
-
-
-  const myUser = await User.findOne({ email: reqBody.email });
+  const myUser = await User.findOne({ email: reqBody.email }).select('+password');;
 
   if (!myUser) {
     throw new FailError("wrong email or password", 400);

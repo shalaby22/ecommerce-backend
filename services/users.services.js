@@ -1,7 +1,7 @@
 
 const bcrypt = require("bcryptjs");
 
-const { User, validateRegister } = require("../models/users-model");
+const { User } = require("../models/users-model");
 
 
 
@@ -16,7 +16,7 @@ const isValidObjectId = require("../utils/isValidObjectId");
  */
 
 const getAllUsersFunc = async function () {
-  const users = await User.find().select("-password");
+  const users = await User.find();
   return users;
 };
 
@@ -31,7 +31,7 @@ const getUserFunc = async function (id) {
   if (!isValidObjectId(id)) {
     throw new FailError("that is not a valid userId", 400);
   }
-  const user = await User.findById(id).select("-password");
+  const user = await User.findById(id);
   if (user) {
     return user;
   } else {
@@ -82,7 +82,7 @@ const updateUserFunc = async function (id,reqBody) {
         {
           new: true,
         },
-      ).select("-password");
+      );
     } catch (error) {
       if (error.code === 11000) {
         const field = Object.keys(error.keyValue)[0];

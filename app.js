@@ -4,19 +4,13 @@ const app = express();
 app.use(express.json());
 const dotenv = require("dotenv").config();
 
+
+
 // connecting with database
-const mongoose = require("mongoose");
+const connectToDB = require("./config/db.js")
+connectToDB();
 
-const db = async function () {
-  try {
-    await mongoose.connect(process.env.DATABASE_URL);
-    console.log("connected to database");
-  } catch (error) {
-    console.log("couldn't connect to the data base -->" + error);
-  }
-};
-db();
-
+//security
 const cors = require("cors");
 const helmet = require("helmet");
 app.use(helmet());
@@ -39,7 +33,6 @@ app.use("/api/cart", cartRoute);
 app.use("/api/orders", ordersRoute);
 
 const { notFound, errHandler } = require("./middlewares/errors");
-
 app.use(notFound);
 app.use(errHandler);
 

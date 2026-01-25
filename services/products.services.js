@@ -2,7 +2,7 @@ const { Product } = require("../models/products-model");
 const { Category } = require("../models/categories-model");
 const { FailError } = require("../middlewares/errors");
 const isValidObjectId = require("../utils/isValidObjectId");
-
+const { DEFAULT_PAGE_LIMIT } = require("../config/constants");
 /**
 
  * @decs  get all Products
@@ -13,7 +13,7 @@ const isValidObjectId = require("../utils/isValidObjectId");
 
 const getAllProductsFunc = async function (reqQuery) {
   const page = reqQuery.page || 1;
-  const countAPage = reqQuery.countAPage || 5;
+  const countAPage = reqQuery.countAPage || DEFAULT_PAGE_LIMIT;
   const products = await Product.find()
     .skip((page - 1) * countAPage)
     .limit(countAPage)
@@ -55,7 +55,6 @@ const getProductFunc = async function (id) {
  */
 
 const addProductFunc = async function (reqBody) {
-
   if (reqBody.category) {
     const myCategory = await Category.findOne({ name: reqBody.category });
     if (!myCategory) {
@@ -94,7 +93,6 @@ const editProductFunc = async function (id, reqBody) {
   if (!myProduct) {
     throw new FailError("didn't find that product", 404);
   }
-
 
   if (reqBody.category) {
     const myCategory = await Category.findOne({ name: reqBody.category });

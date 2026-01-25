@@ -19,7 +19,6 @@ const verifyToken = async (req, res, next) => {
 
     next();
   } catch (err) {
-    console.log(5);
     next(new FailError("Invalid token", 401));
   }
 };
@@ -35,6 +34,15 @@ const verifyTokenForAdmin = function (req, res, next) {
   });
 };
 
+const verifyAdmin = async (req, res, next) => {
+  if (!req.user.isAdmin) {
+    return next(
+      new FailError("Only admin can access this route", 403)
+    );
+  }
+  next();
+};
+
 const verifyTokenForAuthOrAdmin = (req, res, next) => {
   verifyToken(req, res, (err) => {
     if (err) return next(err);
@@ -48,8 +56,20 @@ const verifyTokenForAuthOrAdmin = (req, res, next) => {
   });
 };
 
+const verifyAuthOrAdmin = (req, res, next) => {
+    if (!req.user.isAdmin && req.params.id !== req.user._id) {
+      next(
+        new FailError("you are not allowed to make that for another user", 403),
+      );
+    } else {
+      next();
+    }
+};
+
 module.exports = {
   verifyToken,
   verifyTokenForAdmin,
   verifyTokenForAuthOrAdmin,
+  verifyAdmin,
+  verifyAuthOrAdmin
 };

@@ -11,7 +11,13 @@ const userSchema = new Schema(
       trim: true,
       unique: true,
     },
-    password: { type: String, required: true, minLength: 1, maxLength: 100 },
+    password: {
+      type: String,
+      required: true,
+      minLength: 1,
+      maxLength: 100,
+      select: false,
+    },
     email: {
       type: String,
       required: true,
@@ -68,6 +74,7 @@ const userSchema = new Schema(
           quantity: { type: Number, required: true, min: 0 },
         },
       ],
+      select: false,
     },
   },
   { timestamps: true },

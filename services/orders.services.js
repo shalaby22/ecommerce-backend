@@ -1,7 +1,6 @@
 const { User } = require("../models/users-model");
-const { Product } = require("../models/products-model");
+// const { Product } = require("../models/products-model");
 const { Order } = require("../models/orders-model");
-
 
 const { FailError } = require("../middlewares/errors");
 const { verifyCartProducts } = require("../utils/verifyCartProducts");
@@ -16,7 +15,7 @@ const isValidObjectId = require("../utils/isValidObjectId");
  */
 
 const makeOrderFunc = async function (reqUser, reqBody) {
-  const user = await User.findById(reqUser._id).populate({
+  const user = await User.findById(reqUser._id).select("+cart").populate({
     path: "cart.product",
     select: "name price stock",
   });
@@ -31,7 +30,6 @@ const makeOrderFunc = async function (reqUser, reqBody) {
     throw new FailError("your cart is empty", 400);
   }
 
-
   const addressIndex = reqBody.addressIndex;
 
   if (!user.addresses[+addressIndex]) {
@@ -42,17 +40,17 @@ const makeOrderFunc = async function (reqUser, reqBody) {
     throw new FailError("this payment index is empty", 400);
   }
 
-  //todo separate stock validation in a function below
 
   let items = [];
   for (let i = 0; i < user.cart.length; i++) {
-    const myProduct = await Product.findById(user.cart[i].product._id);
-    if (!myProduct) {
-      throw new FailError(
-        `didn't find that product index ${user.cart[i].product}`,
-        404,
-      );
-    } else if (myProduct.stock < user.cart[i].quantity) {
+    // if (!myProduct) {
+    //   throw new FailError(
+    //     `didn't find that product index ${user.cart[i].product}`,
+    //     404,
+    //   );
+    // };
+    const myProduct = user.cart[i].product;
+    if (myProduct.stock < user.cart[i].quantity) {
       throw new FailError(
         `the stock is not enough for that product ${user.cart[i].product}`,
         400,
@@ -165,7 +163,6 @@ const changeOrderStatusByIdFunc = async function (orderId, reqBody) {
   if (!myOrder) {
     throw new FailError("didn't find that order", 404);
   }
-
 
   myOrder.status = reqBody.status;
   const edited = await myOrder.save();
