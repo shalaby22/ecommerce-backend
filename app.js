@@ -20,7 +20,7 @@ app.use(cors());
 //Logging & Monitoring
 const morgan = require("morgan")
 const logger = require("./config/logger.js")
-app.use(morgan('dev', {
+app.use(morgan('tiny', {
   stream: {
     write: (message) => logger.info(message.trim())
   }

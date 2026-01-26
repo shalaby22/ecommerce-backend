@@ -1,7 +1,5 @@
 const asyncHandler = require("express-async-handler");
 
-
-
 const {
   getAllCategoriesFunc,
   getCategoryFunc,
@@ -50,11 +48,11 @@ const getCategory = asyncHandler(async (req, res) => {
  */
 
 const getProductsOfCategory = asyncHandler(async (req, res) => {
-  const products = await getProductsOfCategoryFunc(req.params.id);
+  const data = await getProductsOfCategoryFunc(req.params.id, req.query);
 
   return res.status(200).json({
     status: "success",
-    data: { products },
+    data: { products: data.products, pagination: data.pagination },
   });
 });
 /**
@@ -66,7 +64,6 @@ const getProductsOfCategory = asyncHandler(async (req, res) => {
  */
 
 const addCategory = asyncHandler(async (req, res) => {
- 
   const category = await addCategoryFunc(req.body);
 
   return res.status(201).json({
@@ -84,8 +81,7 @@ const addCategory = asyncHandler(async (req, res) => {
  */
 
 const editCategory = asyncHandler(async (req, res) => {
- 
-  const category = await editCategoryFunc(req.params.id,req.body);
+  const category = await editCategoryFunc(req.params.id, req.body);
 
   return res.status(200).json({
     status: "success",

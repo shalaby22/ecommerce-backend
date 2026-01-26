@@ -2,7 +2,12 @@ const { Product } = require("../models/products-model");
 const { Category } = require("../models/categories-model");
 const { FailError } = require("../middlewares/errors");
 const isValidObjectId = require("../utils/isValidObjectId");
-const { DEFAULT_PAGE_LIMIT } = require("../config/constants");
+const { DEFAULT_PAGE_LIMIT,DEFAULT_SORTING_METHOD } = require("../config/constants");
+const { log } = require("winston");
+
+
+
+
 /**
 
  * @decs  get all Products
@@ -14,12 +19,51 @@ const { DEFAULT_PAGE_LIMIT } = require("../config/constants");
 const getAllProductsFunc = async function (reqQuery) {
   const page = reqQuery.page || 1;
   const countAPage = reqQuery.countAPage || DEFAULT_PAGE_LIMIT;
-  const products = await Product.find()
+  const sort = reqQuery.sort || DEFAULT_SORTING_METHOD;
+
+  const sortObj = {
+    newest: { createdAt: -1 },
+    oldest: { createdAt: 1 },
+    "price-asc": { price: 1 },
+    "price-desc": { price: -1 },
+  };
+  let query = {};
+  if (reqQuery.search && reqQuery.search.trim() !== "") {
+    query.$text = { $search: reqQuery.search };
+  }
+  if (reqQuery.category) {
+      if (!isValidObjectId(reqQuery.category)) {
+    throw new FailError("that is not a valid category Id in searching", 400);
+  }
+    query.category = reqQuery.category;
+  }
+  if (reqQuery.maxPrice || reqQuery.minPrice) {
+    query.price = {};
+    if (reqQuery.minPrice) query.price.$gte = +reqQuery.minPrice;
+    if (reqQuery.maxPrice) query.price.$lte = +reqQuery.maxPrice;
+  }
+
+
+
+  const products = await Product.find(query)
+    .sort({ ...sortObj[`${sort}`] })
     .skip((page - 1) * countAPage)
     .limit(countAPage)
-    .populate("category", "name");
+    .populate("category", "name")
 
-  return products;
+  const total = await Product.countDocuments(query);
+  const pages = Math.ceil(total / countAPage);
+
+  const pagination = {
+    page:page,
+    limit:countAPage,
+    total:total,
+    pages:pages,
+    hasNext: page < pages,
+    hasPrev: page > 1
+  }
+
+  return {products,pagination};
 };
 
 /**

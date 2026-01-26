@@ -2,7 +2,7 @@ const { Product } = require("../models/products-model");
 const { Category } = require("../models/categories-model");
 const { FailError } = require("../middlewares/errors");
 const isValidObjectId = require("../utils/isValidObjectId");
-
+const {getAllProductsFunc} = require("./products.services");
 /**
  * @decs  get all Categories
  * @route /api/category/
@@ -42,7 +42,7 @@ const getCategoryFunc = async function (id) {
  * @access any
  */
 
-const getProductsOfCategoryFunc = async function (id) {
+const getProductsOfCategoryFunc = async function (id,reqQuery) {
   if (!isValidObjectId(id)) {
     throw new FailError("that is not a valid categoryId", 400);
   }
@@ -50,9 +50,12 @@ const getProductsOfCategoryFunc = async function (id) {
   if (!category) {
     throw new FailError("didn't find that Category", 404);
   }
-  const products = await Product.find({ category: category._id });
+  // const products = await Product.find({ category: category._id });
+  reqQuery.category = id;
+  const data = getAllProductsFunc(reqQuery)
 
-  return products;
+  //can put get products func here
+  return data;
 };
 /**
 

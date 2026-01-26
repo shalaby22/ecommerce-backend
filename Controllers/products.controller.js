@@ -1,6 +1,5 @@
 const asyncHandler = require("express-async-handler");
 
-
 const {
   getAllProductsFunc,
   getProductFunc,
@@ -17,11 +16,11 @@ const {
  */
 
 const getAllProducts = asyncHandler(async (req, res) => {
-  const products = await getAllProductsFunc(req.query);
+  const data = await getAllProductsFunc(req.query);
 
   return res.status(200).json({
     status: "success",
-    data: { products },
+    data: { products: data.products, pagination: data.pagination },
   });
 });
 /**
