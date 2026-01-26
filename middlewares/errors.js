@@ -1,3 +1,5 @@
+const logger = require("../config/logger");
+
 class FailError extends Error {
   constructor(message, statusCode) {
     super(message);
@@ -15,7 +17,6 @@ class serverError extends Error {
 
 const notFound = (req, res) => {
   throw new FailError(`Route ${req.originalUrl} not found`, 404);
-  //   res.status(404).json("not found that path");
 };
 
 const errHandler = (err, req, res, next) => {
@@ -32,10 +33,16 @@ const errHandler = (err, req, res, next) => {
   const message = errStatus === "fail" ? undefined : err.message;
   const data = errStatus === "fail" ? err.message : undefined;
 
-  // console.log(err);
   if (statusCode >= 500) {
-    console.error(err);
+    // console.error(err);
+    logger.error({
+      message: err.message,
+      stack: err.stack,
+      path: req.originalUrl,
+      method: req.method,
+    });
   }
+
   res.status(statusCode).json({
     status: errStatus,
     message: message,

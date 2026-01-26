@@ -2,7 +2,7 @@
 const express = require("express");
 const app = express();
 app.use(express.json());
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 
 
 
@@ -15,6 +15,16 @@ const cors = require("cors");
 const helmet = require("helmet");
 app.use(helmet());
 app.use(cors());
+
+
+//Logging & Monitoring
+const morgan = require("morgan")
+const logger = require("./config/logger.js")
+app.use(morgan('dev', {
+  stream: {
+    write: (message) => logger.info(message.trim())
+  }
+}));
 
 
 const authRoute = require("./routes/auth");
