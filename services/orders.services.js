@@ -1,10 +1,11 @@
 const { User } = require("../models/users-model");
-// const { Product } = require("../models/products-model");
+const { Product } = require("../models/products-model");
 const { Order } = require("../models/orders-model");
 
 const { FailError } = require("../middlewares/errors");
 const { verifyCartProducts } = require("../utils/verifyCartProducts");
 const isValidObjectId = require("../utils/isValidObjectId");
+const mongoose = require("mongoose");
 
 /**
 
@@ -30,24 +31,16 @@ const makeOrderFunc = async function (reqUser, reqBody) {
     throw new FailError("your cart is empty", 400);
   }
 
-  const addressIndex = reqBody.addressIndex;
-
-  if (!user.addresses[+addressIndex]) {
+  if (!user.addresses[+reqBody.addressIndex]) {
     throw new FailError("this address index is empty", 400);
   }
-  const paymentIndex = reqBody.paymentIndex;
-  if (!user.payments[+paymentIndex]) {
+
+  if (!user.payments[+reqBody.paymentIndex]) {
     throw new FailError("this payment index is empty", 400);
   }
 
   let items = [];
   for (let i = 0; i < user.cart.length; i++) {
-    // if (!myProduct) {
-    //   throw new FailError(
-    //     `didn't find that product index ${user.cart[i].product}`,
-    //     404,
-    //   );
-    // };
     const myProduct = user.cart[i].product;
     if (myProduct.stock < user.cart[i].quantity) {
       throw new FailError(
@@ -62,24 +55,55 @@ const makeOrderFunc = async function (reqUser, reqBody) {
       };
     }
   }
+
   const total = user.cartPrice();
 
-  //todo add payment verification
   const newOrder = new Order({
     user: reqUser._id,
     items: items,
-    shippingAddress: user.addresses[+addressIndex],
+    shippingAddress: user.addresses[+reqBody.addressIndex],
     total: total,
     //status: reqBody.status,
   });
 
-  const saved = await newOrder.save();
+  //todo add payment verification
 
-  user.cart = [];
-  await user.save();
-
-  return saved;
+  const order = await makeOrderTransaction(user, newOrder);
+  return order;
 };
+
+async function makeOrderTransaction(user, order) {
+  const session = await mongoose.startSession();
+  try {
+    return await session.withTransaction(async () => {
+      for (let i = 0; i < user.cart.length; i++) {
+        const result = await Product.updateOne(
+          {
+            _id: user.cart[i].product._id,
+            stock: { $gte: user.cart[i].quantity },
+          },
+          { $inc: { stock: -user.cart[i].quantity } },
+          { session },
+        );
+        if (result.modifiedCount === 0) {
+          throw new FailError(
+            `the stock is not enough for that product ${user.cart[i].product.name}`,
+            400,
+          );
+        }
+      }
+      const saved = await order.save({ session });
+      user.cart = [];
+      await user.save({ session });
+      return saved;
+    });
+  } catch (error) {
+    throw new FailError(error.message, 400);
+  } finally {
+    session.endSession();
+  }
+}
+
 
 /**
  * @decs  get orders
@@ -141,7 +165,7 @@ const getOrderByIdFunc = async function (orderId, reqUser) {
   if (!myOrder) {
     throw new FailError("didn't find that order", 404);
   }
-  if (myOrder.user == reqUser._id || reqUser.isAdmin) {    
+  if (myOrder.user == reqUser._id || reqUser.isAdmin) {
     return myOrder;
   } else {
     throw new FailError("not allowed to show another one order", 401);
@@ -195,7 +219,7 @@ const changeOrderStatusByIdFunc = async function (orderId, reqBody) {
 const cancelOrderByIdFunc = async function (orderId, reqUser) {
   const myOrder = await getOrderByIdFunc(orderId, reqUser);
   const allowedStatus = reqUser.isAdmin ? ["paid", "pending"] : ["pending"];
-  
+
   if (allowedStatus.includes(myOrder.status)) {
     myOrder.status = "cancelled";
     await myOrder.save();
@@ -214,5 +238,5 @@ module.exports = {
   getAllOrdersFunc,
   getOrderByIdFunc,
   changeOrderStatusByIdFunc,
-  cancelOrderByIdFunc
+  cancelOrderByIdFunc,
 };
