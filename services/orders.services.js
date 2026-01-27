@@ -157,7 +157,7 @@ const getAllOrdersFunc = async function () {
  * @method get
  * @access auth or admin 
  */
-const getOrderByIdFunc = async function (orderId, reqUser) {
+const getOrderByIdFunc = async function (orderId, reqUser,isEdit) {
   if (!isValidObjectId(orderId)) {
     throw new FailError("that is not a valid orderId", 400);
   }
@@ -168,7 +168,8 @@ const getOrderByIdFunc = async function (orderId, reqUser) {
   if (myOrder.user == reqUser._id || reqUser.isAdmin) {
     return myOrder;
   } else {
-    throw new FailError("not allowed to show another one order", 401);
+    const word = isEdit ? "edit" : "show"
+    throw new FailError(`not allowed to ${word} another one order`, 401);
   }
 };
 /**
@@ -217,7 +218,7 @@ const changeOrderStatusByIdFunc = async function (orderId, reqBody) {
  */
 
 const cancelOrderByIdFunc = async function (orderId, reqUser) {
-  const myOrder = await getOrderByIdFunc(orderId, reqUser);
+  const myOrder = await getOrderByIdFunc(orderId, reqUser,true);
   const allowedStatus = reqUser.isAdmin ? ["paid", "pending"] : ["pending"];
 
   if (allowedStatus.includes(myOrder.status)) {

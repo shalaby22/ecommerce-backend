@@ -33,7 +33,12 @@ const addItemToCartFunc = async function (reqBody, reqUser) {
     max = myProduct.stock;
   }
 
-  verifyCartProducts(user.cart);
+  const { edited , myCart} = verifyCartProducts(user.cart);
+  if (edited) {
+    user.cart = myCart;
+  }
+
+
 
   let done = false;
 
@@ -71,10 +76,11 @@ const getCartFunc = async function (reqUser) {
     .select("cart")
     .populate({ path: "cart.product", select: "name price stock" });
 
-  const { edited } = verifyCartProducts(user.cart);
+  const { edited , myCart} = verifyCartProducts(user.cart);
 
   if (edited) {
-    const saved = await user.save();
+    user.cart = myCart;
+    await user.save();
   }
   const cart = { cart: [...user.cart], total: user.cartPrice() };
 
@@ -108,8 +114,11 @@ const deleteProductFromCartFunc = async function (productId, reqUser) {
     .select("cart")
     .populate({ path: "cart.product", select: "name price stock" });
 
-  verifyCartProducts(user.cart);
-
+  const { edited , myCart} = verifyCartProducts(user.cart);
+  if (edited) {
+    user.cart = myCart;
+  }
+  
   user.cart = user.cart.filter((ele) => productId != ele.product._id);
 
   const deleted = await user.save();
@@ -143,7 +152,10 @@ const editProductFromCartFunc = async function (productId, reqUser, reqBody) {
     throw new FailError("the stock is not enough", 400);
   }
 
-  verifyCartProducts(user.cart);
+  const { edited , myCart} = verifyCartProducts(user.cart);
+  if (edited) {
+    user.cart = myCart;
+  }
 
   user.cart.forEach((ele, i) => {
     if (productId == ele.product._id) {
@@ -156,9 +168,9 @@ const editProductFromCartFunc = async function (productId, reqUser, reqBody) {
     throw new FailError("this product isn't in your cart please add it", 400);
   }
 
-  const edited = await user.save();
+  const edited2 = await user.save();
 
-  const cart = { cart: [...user.cart], total: edited.cartPrice() };
+  const cart = { cart: [...user.cart], total: edited2.cartPrice() };
 
   return cart;
 };

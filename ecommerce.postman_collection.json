@@ -3680,6 +3680,187 @@
               "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"order\": {\n            \"_id\": \"6973628f90e90377b9316c54\",\n            \"user\": \"696e237c58f73a7e75a28f10\",\n            \"items\": [\n                {\n                    \"product\": \"696f47b0c74e8360b453541b\",\n                    \"quantity\": 5,\n                    \"price\": 7,\n                    \"_id\": \"6973628f90e90377b9316c55\"\n                }\n            ],\n            \"shippingAddress\": \"playfootball\",\n            \"status\": \"cancelled\",\n            \"total\": 35,\n            \"createdAt\": \"2026-01-23T11:59:11.094Z\",\n            \"updatedAt\": \"2026-01-23T13:33:27.783Z\",\n            \"__v\": 0\n        }\n    }\n}"
             }
           ]
+        },
+        {
+          "name": "cancel order by id",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "text",
+                "disabled": true
+              },
+              {
+                "key": "token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTc4YWI4MGExMWZmNWM3YmU0NzFhZTUiLCJlbWFpbCI6Im1lbXNyakBmZ3NhbS5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzY5NTE1OTA0LCJleHAiOjE3NzAxMjA3MDR9.V8WT7AUPgxSytYHhLsLoTL1j-4Thi1XDu4NoKdQiR9M",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{ecommerce}}/api/orders/69790a1f481346eaa8799c8a/cancel",
+              "host": [
+                "{{ecommerce}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "69790a1f481346eaa8799c8a",
+                "cancel"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "cancel order by id",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTc4YWI4MGExMWZmNWM3YmU0NzFhZTUiLCJlbWFpbCI6Im1lbXNyakBmZ3NhbS5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzY5NTE1OTA0LCJleHAiOjE3NzAxMjA3MDR9.V8WT7AUPgxSytYHhLsLoTL1j-4Thi1XDu4NoKdQiR9M",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ecommerce}}/api/orders/6978ab8ea11ff5c7be471af4/cancel",
+                  "host": [
+                    "{{ecommerce}}"
+                  ],
+                  "path": [
+                    "api",
+                    "orders",
+                    "6978ab8ea11ff5c7be471af4",
+                    "cancel"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Security-Policy",
+                  "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "359"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"167-impfTsKYFncH6YpWeKmGvdhliCU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 27 Jan 2026 12:24:32 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"order\": {\n            \"_id\": \"6978ab8ea11ff5c7be471af4\",\n            \"user\": \"6978ab80a11ff5c7be471ae5\",\n            \"items\": [\n                {\n                    \"product\": \"696e9396dd8d7d5f3e78e0ef\",\n                    \"quantity\": 1,\n                    \"price\": 5,\n                    \"_id\": \"6978ab8ea11ff5c7be471af5\"\n                }\n            ],\n            \"shippingAddress\": \"quwesna 24\",\n            \"status\": \"cancelled\",\n            \"total\": 5,\n            \"createdAt\": \"2026-01-27T12:11:58.871Z\",\n            \"updatedAt\": \"2026-01-27T12:24:32.795Z\",\n            \"__v\": 0\n        }\n    }\n}"
+            }
+          ]
         }
       ]
     }
