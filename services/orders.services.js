@@ -40,7 +40,6 @@ const makeOrderFunc = async function (reqUser, reqBody) {
     throw new FailError("this payment index is empty", 400);
   }
 
-
   let items = [];
   for (let i = 0; i < user.cart.length; i++) {
     // if (!myProduct) {
@@ -142,10 +141,10 @@ const getOrderByIdFunc = async function (orderId, reqUser) {
   if (!myOrder) {
     throw new FailError("didn't find that order", 404);
   }
-  if (myOrder.user == reqUser._id || reqUser.isAdmin) {
+  if (myOrder.user == reqUser._id || reqUser.isAdmin) {    
     return myOrder;
   } else {
-    throw new FailError("not allowed to see another one order", 401);
+    throw new FailError("not allowed to show another one order", 401);
   }
 };
 /**
@@ -164,10 +163,49 @@ const changeOrderStatusByIdFunc = async function (orderId, reqBody) {
     throw new FailError("didn't find that order", 404);
   }
 
-  myOrder.status = reqBody.status;
-  const edited = await myOrder.save();
+  const allowedStatus = {
+    pending: ["cancelled", "paid"],
+    paid: ["shipped", "cancelled"],
+    shipped: ["delivered"],
+    delivered: [],
+    cancelled: [],
+  };
 
-  return edited;
+  if (allowedStatus[myOrder.status].includes(reqBody.status)) {
+    myOrder.status = reqBody.status;
+    await myOrder.save();
+  } else {
+    throw new FailError(
+      `can't change ${myOrder.status} to ${reqBody.status} `,
+      400,
+    );
+  }
+
+  return myOrder;
+};
+
+/**
+
+ * @decs  cancel order by id
+ * @route /api/orders/:orderId/cancel
+ * @method post
+ * @access auth or admin 
+ */
+
+const cancelOrderByIdFunc = async function (orderId, reqUser) {
+  const myOrder = await getOrderByIdFunc(orderId, reqUser);
+  const allowedStatus = reqUser.isAdmin ? ["paid", "pending"] : ["pending"];
+  
+  if (allowedStatus.includes(myOrder.status)) {
+    myOrder.status = "cancelled";
+    await myOrder.save();
+  } else {
+    throw new FailError(
+      `can't cancel order which status is ${myOrder.status}`,
+      400,
+    );
+  }
+  return myOrder;
 };
 
 module.exports = {
@@ -176,4 +214,5 @@ module.exports = {
   getAllOrdersFunc,
   getOrderByIdFunc,
   changeOrderStatusByIdFunc,
+  cancelOrderByIdFunc
 };

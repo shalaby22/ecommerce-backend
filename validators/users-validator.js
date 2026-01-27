@@ -33,7 +33,7 @@ const validateRegister = function (myObj, method) {
         cvv: Joi.string().required().min(3).max(4),
       }),
     ),
-    addresses: Joi.array().items(Joi.string()),
+    addresses: Joi.array().items(Joi.string().min(8)),
 
     email: Joi.string()
       .email({

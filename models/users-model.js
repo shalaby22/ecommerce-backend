@@ -62,7 +62,12 @@ const userSchema = new Schema(
         },
       ],
     },
-    addresses: { type: [String] },
+    
+    addresses: { type: [{
+      type: String,
+      minLength: 8,
+      required: true,
+    }] },
     isAdmin: { type: Boolean, default: false },
     cart: {
       type: [

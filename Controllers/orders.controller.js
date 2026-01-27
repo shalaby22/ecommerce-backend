@@ -6,6 +6,7 @@ const {
   getAllOrdersFunc,
   getOrderByIdFunc,
   changeOrderStatusByIdFunc,
+  cancelOrderByIdFunc
 } = require("../services/orders.services");
 
 /**
@@ -106,6 +107,22 @@ const changeOrderStatusById = asyncHandler(async (req, res) => {
   });
 });
 
+
+/**
+
+ * @decs  cancel order by id
+ * @route /api/orders/:orderId/cancel
+ * @method post
+ * @access auth or admin 
+ */
+const cancelOrderById = asyncHandler(async (req, res) => {
+  const order = await cancelOrderByIdFunc(req.params.orderId,req.user);
+  return res.status(200).json({
+    status: "success",
+    data: { order },
+  });
+});
+
 module.exports = {
   makeOrder,
   getUserOrders,
@@ -113,4 +130,5 @@ module.exports = {
   getAllOrders,
   getOrderById,
   changeOrderStatusById,
+  cancelOrderById
 };
