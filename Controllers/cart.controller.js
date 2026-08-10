@@ -6,16 +6,31 @@ const {
   deleteCartFunc,
   deleteProductFromCartFunc,
   editProductFromCartFunc,
+  mergeItemsToCartFunc,
 } = require("../services/cart.services");
+
+/**
+ * @decs  merge item to cart
+ * @route /api/cart/merge
+ * @method post
+ * @access auth
+ */
+const mergeItemsToCart = asyncHandler(async (req, res) => {
+  const cart = await mergeItemsToCartFunc(req.body, req.user);
+  
+  return res.status(200).json({
+    status: "success",
+    data: cart,
+  });
+});
 
 /**
  * @decs  add item to cart
  * @route /api/cart/add
  * @method post
- * @access auth  
+ * @access auth
  */
 const addItemToCart = asyncHandler(async (req, res) => {
-
   const cart = await addItemToCartFunc(req.body, req.user);
 
   return res.status(200).json({
@@ -33,7 +48,6 @@ const addItemToCart = asyncHandler(async (req, res) => {
  */
 
 const getCart = asyncHandler(async (req, res) => {
-
   const cart = await getCartFunc(req.user);
 
   return res.status(200).json({
@@ -51,7 +65,6 @@ const getCart = asyncHandler(async (req, res) => {
  */
 
 const deleteCart = asyncHandler(async (req, res) => {
-
   const cart = await deleteCartFunc(req.user);
 
   return res.status(200).json({
@@ -68,7 +81,6 @@ const deleteCart = asyncHandler(async (req, res) => {
  * @access auth  
  */
 const deleteProductFromCart = asyncHandler(async (req, res) => {
-  
   const cart = await deleteProductFromCartFunc(req.params.productId, req.user);
 
   return res.status(200).json({
@@ -85,7 +97,6 @@ const deleteProductFromCart = asyncHandler(async (req, res) => {
  */
 
 const editProductFromCart = asyncHandler(async (req, res) => {
-
   const cart = await editProductFromCartFunc(
     req.params.productId,
     req.user,
@@ -104,4 +115,5 @@ module.exports = {
   deleteCart,
   deleteProductFromCart,
   editProductFromCart,
+  mergeItemsToCart,
 };

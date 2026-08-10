@@ -1,4 +1,3 @@
-
 const { User } = require("../models/users-model");
 const { Product } = require("../models/products-model");
 
@@ -7,10 +6,61 @@ const { verifyCartProducts } = require("../utils/verifyCartProducts");
 const isValidObjectId = require("../utils/isValidObjectId");
 
 /**
+ * @decs  merge items to cart
+ * @route /api/cart/merge
+ * @method post
+ * @access auth
+ */
+const mergeItemsToCartFunc = async function (reqBody, reqUser) {
+  const user = await User.findById(reqUser._id)
+    .select("cart")
+    .populate({ path: "cart.product", select: "name price stock" });
+
+  const { edited, myCart } = verifyCartProducts(user.cart);
+  if (edited) {
+    user.cart = myCart;
+  }
+
+  for (let product of reqBody) {
+    if (!isValidObjectId(product.productId)) {
+      continue;
+    }
+    let max;
+    const myProduct = await Product.findById(product.productId).select(
+      "name price stock",
+    );
+
+    if (!myProduct || myProduct.stock === 0) {
+      continue;
+    } else {
+      max = myProduct.stock;
+    }
+
+    let done = false;
+    for (let i = 0; i < user.cart.length; i++) {
+      if (product.productId == user.cart[i].product._id) {
+        done = true;
+      }
+    }
+    if (done) continue;
+
+    let quantity =
+      myProduct.stock < product.quantity ? myProduct.stock : product.quantity;
+    user.cart = [...user.cart, { product: myProduct, quantity: quantity }];
+  }
+
+  const saved = await user.save();
+
+  const cart = { cart: [...saved.cart], total: user.cartPrice() };
+
+  return cart;
+};
+
+/**
  * @decs  add item to cart
  * @route /api/cart/add
  * @method post
- * @access auth  
+ * @access auth
  */
 const addItemToCartFunc = async function (reqBody, reqUser) {
   if (!isValidObjectId(reqBody.productId)) {
@@ -33,12 +83,10 @@ const addItemToCartFunc = async function (reqBody, reqUser) {
     max = myProduct.stock;
   }
 
-  const { edited , myCart} = verifyCartProducts(user.cart);
+  const { edited, myCart } = verifyCartProducts(user.cart);
   if (edited) {
     user.cart = myCart;
   }
-
-
 
   let done = false;
 
@@ -68,7 +116,7 @@ const addItemToCartFunc = async function (reqBody, reqUser) {
  * @decs  get cart of user
  * @route /api/cart/
  * @method get
- * @access auth  
+ * @access auth
  */
 
 const getCartFunc = async function (reqUser) {
@@ -76,7 +124,7 @@ const getCartFunc = async function (reqUser) {
     .select("cart")
     .populate({ path: "cart.product", select: "name price stock" });
 
-  const { edited , myCart} = verifyCartProducts(user.cart);
+  const { edited, myCart } = verifyCartProducts(user.cart);
 
   if (edited) {
     user.cart = myCart;
@@ -91,7 +139,7 @@ const getCartFunc = async function (reqUser) {
  * @decs  DELETE THE WHOLE cart of user
  * @route /api/cart/
  * @method DELETE
- * @access auth  
+ * @access auth
  */
 
 const deleteCartFunc = async function (reqUser) {
@@ -106,7 +154,7 @@ const deleteCartFunc = async function (reqUser) {
  * @decs  DELETE a product from cart of user
  * @route /api/cart/:productId
  * @method DELETE
- * @access auth  
+ * @access auth
  */
 
 const deleteProductFromCartFunc = async function (productId, reqUser) {
@@ -114,11 +162,11 @@ const deleteProductFromCartFunc = async function (productId, reqUser) {
     .select("cart")
     .populate({ path: "cart.product", select: "name price stock" });
 
-  const { edited , myCart} = verifyCartProducts(user.cart);
+  const { edited, myCart } = verifyCartProducts(user.cart);
   if (edited) {
     user.cart = myCart;
   }
-  
+
   user.cart = user.cart.filter((ele) => productId != ele.product._id);
 
   const deleted = await user.save();
@@ -145,14 +193,14 @@ const editProductFromCartFunc = async function (productId, reqUser, reqBody) {
   let done = false;
 
   const myProduct = await Product.findById(productId).select();
-  
+
   if (!myProduct) {
     throw new FailError("didn't find that product", 404);
   } else if (myProduct.stock < reqBody.quantity) {
     throw new FailError("the stock is not enough", 400);
   }
 
-  const { edited , myCart} = verifyCartProducts(user.cart);
+  const { edited, myCart } = verifyCartProducts(user.cart);
   if (edited) {
     user.cart = myCart;
   }
@@ -181,4 +229,5 @@ module.exports = {
   deleteCartFunc,
   deleteProductFromCartFunc,
   editProductFromCartFunc,
+  mergeItemsToCartFunc,
 };

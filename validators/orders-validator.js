@@ -13,8 +13,6 @@ const validateNewOrder = function (myObj) {
 const validateEditOrderStatus = function (myObj) {
   const schema = Joi.object({
     status: Joi.string().required().valid("pending", "paid", "shipped", "delivered", "cancelled"),
-
-
   });
 
   return schema.validate(myObj);

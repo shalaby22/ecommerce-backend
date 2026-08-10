@@ -23,8 +23,8 @@ const validateRegister = function (myObj, method) {
     password: passwordComplexity(complexityOptions),
 
     phone: Joi.string()
-      .regex(/^[0-9]{10}$/)
-      .messages({ "string.pattern.base": `Phone number must have 10 digits.` }),
+      .regex(/^[0-9]{11}$/)
+      .messages({ "string.pattern.base": `Phone number must have 11 digits.` }),
 
     payments: Joi.array().items(
       Joi.object({

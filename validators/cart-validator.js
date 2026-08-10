@@ -19,4 +19,14 @@ const validateAddCart = function (myObj, method) {
   }
 };
 
-module.exports = {validateAddCart}
+const validateMergeCart = function (myObj) {
+  const schema = Joi.array().items(
+    Joi.object({
+      productId: Joi.string().max(25).required(),
+      quantity: Joi.number().integer().positive().required(),
+    }),
+  );
+  return schema.validate(myObj);
+};
+
+module.exports = { validateAddCart,validateMergeCart };

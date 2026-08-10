@@ -10,7 +10,7 @@ const {getAllProductsFunc} = require("./products.services");
  * @access any
  */
 const getAllCategoriesFunc = async function () {
-  const categories = await Category.find().select();
+  const categories = await Category.find().sort({ createdAt: 1 });
   return categories;
 };
 

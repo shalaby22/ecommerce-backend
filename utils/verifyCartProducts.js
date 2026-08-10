@@ -1,7 +1,6 @@
 //this function change the primary array if not given spread
 const verifyCartProducts = function (cart) {
   const myCart = [...cart];
-  
   let indexes = [];
   let x = 0;
   let edited = false;
