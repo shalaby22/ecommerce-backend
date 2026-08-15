@@ -4,7 +4,6 @@ const Joi = require("joi");
 const validateCategory = function (myObj, method) {
   const schema = Joi.object({
     name: Joi.string()
-      .alphanum()
       .min(3)
       .max(40)
       .alter({

@@ -35,9 +35,9 @@ const makeOrderFunc = async function (reqUser, reqBody) {
     throw new FailError("this address index is empty", 400);
   }
 
-  if (!user.payments[+reqBody.paymentIndex]) {
-    throw new FailError("this payment index is empty", 400);
-  }
+  // if (!user.payments[+reqBody.paymentIndex]) {
+  //   throw new FailError("this payment index is empty", 400);
+  // }
 
   let items = [];
   for (let i = 0; i < user.cart.length; i++) {
@@ -104,7 +104,6 @@ async function makeOrderTransaction(user, order) {
   }
 }
 
-
 /**
  * @decs  get orders
  * @route /api/orders
@@ -134,7 +133,15 @@ const getOrdersByUserIdFunc = async function (userId) {
     throw new FailError("that is not a valid userId", 400);
   }
 
-  const orders = await Order.find({ user: userId });
+  const orders = await Order.find({ user: userId })
+    .populate({
+      path: "items.product",
+      select: "name images",
+    })
+    .populate({
+      path: "user",
+      select: "firstName lastName email phone",
+    });
   return orders;
 };
 
@@ -146,7 +153,15 @@ const getOrdersByUserIdFunc = async function (userId) {
  * @access admin only  
  */
 const getAllOrdersFunc = async function () {
-  const orders = await Order.find();
+  const orders = await Order.find()
+    .populate({
+      path: "items.product",
+      select: "name images",
+    })
+    .populate({
+      path: "user",
+      select: "firstName lastName email phone",
+    });
   return orders;
 };
 
@@ -157,18 +172,26 @@ const getAllOrdersFunc = async function () {
  * @method get
  * @access auth or admin 
  */
-const getOrderByIdFunc = async function (orderId, reqUser,isEdit) {
+const getOrderByIdFunc = async function (orderId, reqUser, isEdit) {
   if (!isValidObjectId(orderId)) {
     throw new FailError("that is not a valid orderId", 400);
   }
-  const myOrder = await Order.findById(orderId);
+  const myOrder = await Order.findById(orderId)
+    .populate({
+      path: "items.product",
+      select: "name images",
+    })
+    .populate({
+      path: "user",
+      select: "firstName lastName email phone",
+    });
   if (!myOrder) {
     throw new FailError("didn't find that order", 404);
   }
-  if (myOrder.user == reqUser._id || reqUser.isAdmin) {
+  if (myOrder.user._id == reqUser._id || reqUser.isAdmin) {
     return myOrder;
   } else {
-    const word = isEdit ? "edit" : "show"
+    const word = isEdit ? "edit" : "show";
     throw new FailError(`not allowed to ${word} another one order`, 401);
   }
 };
@@ -183,7 +206,15 @@ const changeOrderStatusByIdFunc = async function (orderId, reqBody) {
   if (!isValidObjectId(orderId)) {
     throw new FailError("that is not a valid orderId", 400);
   }
-  const myOrder = await Order.findById(orderId);
+  const myOrder = await Order.findById(orderId)
+    .populate({
+      path: "items.product",
+      select: "name images",
+    })
+    .populate({
+      path: "user",
+      select: "firstName lastName email phone",
+    });
   if (!myOrder) {
     throw new FailError("didn't find that order", 404);
   }
@@ -218,7 +249,7 @@ const changeOrderStatusByIdFunc = async function (orderId, reqBody) {
  */
 
 const cancelOrderByIdFunc = async function (orderId, reqUser) {
-  const myOrder = await getOrderByIdFunc(orderId, reqUser,true);
+  const myOrder = await getOrderByIdFunc(orderId, reqUser, true);
   const allowedStatus = reqUser.isAdmin ? ["paid", "pending"] : ["pending"];
 
   if (allowedStatus.includes(myOrder.status)) {

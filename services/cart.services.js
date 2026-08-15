@@ -14,7 +14,7 @@ const isValidObjectId = require("../utils/isValidObjectId");
 const mergeItemsToCartFunc = async function (reqBody, reqUser) {
   const user = await User.findById(reqUser._id)
     .select("cart")
-    .populate({ path: "cart.product", select: "name price stock" });
+    .populate({ path: "cart.product", select: "name price stock images" });
 
   const { edited, myCart } = verifyCartProducts(user.cart);
   if (edited) {
@@ -27,7 +27,7 @@ const mergeItemsToCartFunc = async function (reqBody, reqUser) {
     }
     let max;
     const myProduct = await Product.findById(product.productId).select(
-      "name price stock",
+      "name price stock images",
     );
 
     if (!myProduct || myProduct.stock === 0) {
@@ -68,11 +68,11 @@ const addItemToCartFunc = async function (reqBody, reqUser) {
   }
   const user = await User.findById(reqUser._id)
     .select("cart")
-    .populate({ path: "cart.product", select: "name price stock" });
+    .populate({ path: "cart.product", select: "name price stock images" });
 
   let max;
   const myProduct = await Product.findById(reqBody.productId).select(
-    "name price stock",
+    "name price stock images",
   );
 
   if (!myProduct) {
@@ -122,7 +122,7 @@ const addItemToCartFunc = async function (reqBody, reqUser) {
 const getCartFunc = async function (reqUser) {
   const user = await User.findById(reqUser._id)
     .select("cart")
-    .populate({ path: "cart.product", select: "name price stock" });
+    .populate({ path: "cart.product", select: "name price stock images" });
 
   const { edited, myCart } = verifyCartProducts(user.cart);
 
@@ -160,7 +160,7 @@ const deleteCartFunc = async function (reqUser) {
 const deleteProductFromCartFunc = async function (productId, reqUser) {
   const user = await User.findById(reqUser._id)
     .select("cart")
-    .populate({ path: "cart.product", select: "name price stock" });
+    .populate({ path: "cart.product", select: "name price stock images" });
 
   const { edited, myCart } = verifyCartProducts(user.cart);
   if (edited) {
@@ -188,7 +188,7 @@ const editProductFromCartFunc = async function (productId, reqUser, reqBody) {
 
   const user = await User.findById(reqUser._id)
     .select("cart")
-    .populate({ path: "cart.product", select: "name price stock" });
+    .populate({ path: "cart.product", select: "name price stock images" });
 
   let done = false;
 
