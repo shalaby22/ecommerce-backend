@@ -6,7 +6,11 @@ require("dotenv").config();
 
 // connecting with database
 const connectToDB = require("./config/db.js");
-connectToDB();
+
+app.use(async (req, res, next) => {
+  await connectToDB();
+  next();
+});
 
 //security
 const cors = require("cors");

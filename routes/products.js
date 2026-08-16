@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   verifyAdmin,
   verifyToken,
-} = require("../middlewares/verifytoken");
+} = require("../middlewares/verifyToken");
 const { validate } = require("../middlewares/validateJoi");
 const { validateProduct } = require("../validators/products-validator");
 
