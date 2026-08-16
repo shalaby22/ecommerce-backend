@@ -4,10 +4,8 @@ const app = express();
 app.use(express.json());
 require("dotenv").config();
 
-
-
 // connecting with database
-const connectToDB = require("./config/db.js")
+const connectToDB = require("./config/db.js");
 connectToDB();
 
 //security
@@ -16,16 +14,16 @@ const helmet = require("helmet");
 app.use(helmet());
 app.use(cors());
 
-
 //Logging & Monitoring
-const morgan = require("morgan")
-const logger = require("./config/logger.js")
-app.use(morgan('tiny', {
-  stream: {
-    write: (message) => logger.info(message.trim())
-  }
-}));
-
+const morgan = require("morgan");
+const logger = require("./config/logger.js");
+app.use(
+  morgan("tiny", {
+    stream: {
+      write: (message) => logger.info(message.trim()),
+    },
+  }),
+);
 
 const authRoute = require("./routes/auth");
 const usersRoute = require("./routes/users");
@@ -33,7 +31,6 @@ const productsRoute = require("./routes/products");
 const categoriesRoute = require("./routes/categories.js");
 const cartRoute = require("./routes/cart.js");
 const ordersRoute = require("./routes/orders.js");
-
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
@@ -47,8 +44,17 @@ app.use(notFound);
 app.use(errHandler);
 
 // app execution
-app.listen(process.env.PORT, () => {
-  console.log(
-    `Server is running on port ${process.env.PORT} in ${process.env.NODE_ENV} mode`,
-  );
-});
+// app.listen(process.env.PORT, () => {
+//   console.log(
+//     `Server is running on port ${process.env.PORT} in ${process.env.NODE_ENV} mode`,
+//   );
+// });
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(
+      `Server is running on port ${PORT} in ${process.env.NODE_ENV || "development"} mode`,
+    );
+  });
+}
+module.exports = app;
